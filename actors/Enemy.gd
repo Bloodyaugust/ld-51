@@ -7,13 +7,15 @@ var data: UnitData
 
 onready var _player: Node2D = get_tree().get_nodes_in_group("player")[0]
 
+var _health: int
 var _time_to_attack: float
 
-func hit() -> void:
-  data.health -= 1
-  if data.health <= 0:
+func hit(damage: int) -> void:
+  _health -= damage
+
+  if _health <= 0:
     kill()
-    
+
 func kill() -> void:
   queue_free()
 
@@ -22,7 +24,9 @@ func _physics_process(_delta: float) -> void:
   var _movement: Vector2 = _direction * data.speed
 
   move_and_slide(_movement)
-  
+
 func _ready() -> void:
   if !data:
     data = data_default
+
+  _health = data.health
