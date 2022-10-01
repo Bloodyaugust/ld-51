@@ -8,6 +8,8 @@
 radius = 29.0689
 
 [node name="Enemy" type="KinematicBody2D"]
+collision_layer = 2
+collision_mask = 3
 script = ExtResource( 1 )
 data_default = ExtResource( 3 )
 

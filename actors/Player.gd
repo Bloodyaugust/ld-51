@@ -3,17 +3,23 @@ extends KinematicBody2D
 const MOVE_SPEED_BASE: float = 25.0
 const WEAPON_SCRIPT := preload("res://scripts/weapon.gd")
 
+var last_move_direction: Vector2 = Vector2.RIGHT
+
 func _on_store_state_changed(state_key: String, substate) -> void:
   match state_key:
     "weapons":
       var new_weapon := WEAPON_SCRIPT.new()
       new_weapon.data = substate[0]
+      new_weapon.player = self
       add_child(new_weapon)
   
 func _process(_delta):
   var _movement: Vector2 = Vector2.ZERO
   
   _movement += Vector2(Input.get_axis("move_left", "move_right"), Input.get_axis("move_up", "move_down")).normalized() * MOVE_SPEED_BASE
+  
+  if _movement.normalized().length() > 0.1:
+    last_move_direction = _movement.normalized()
   
   move_and_slide(_movement)
 

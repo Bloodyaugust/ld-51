@@ -11,3 +11,4 @@ flags = "facing"
 id = "ray-gun"
 max_level = 6
 name = "Ray Gun"
+speed = 150.0

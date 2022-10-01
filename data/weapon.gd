@@ -8,3 +8,4 @@ export var flags: String
 export var id: String
 export var max_level: int
 export var name: String
+export var speed: float

@@ -1,11 +1,23 @@
 extends Node
 
+const PROJECTILE_SCENE: PackedScene = preload("res://actors/Projectile.tscn")
+
 var data: WeaponData
+var player: Node2D
 
 var _time_to_fire: float
 
 func _fire() -> void:
-  print("pew pew")
+  var _new_projectile: Node2D = PROJECTILE_SCENE.instance()
+
+  _new_projectile.data = data
+  _new_projectile.global_position = player.global_position
+
+  # TODO: handle direction of projectile for other weapon types
+  if "facing" in data.flags: 
+    _new_projectile.direction = player.last_move_direction
+
+  get_tree().get_root().add_child(_new_projectile)
 
 func _process(delta: float) -> void:
   _time_to_fire -= delta
