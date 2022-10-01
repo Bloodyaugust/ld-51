@@ -2,10 +2,13 @@ extends Node
 
 signal state_changed(state_key, substate)
 
+const ray_gun: WeaponData = preload("res://data/weapons/ray-gun.tres")
+
 var persistent_store:PersistentStore
 var state: Dictionary = {
   "client_view": "",
-  "game": ""
+  "game": "",
+  "weapons": []
  }
 
 func start_game() -> void:
@@ -24,6 +27,7 @@ func set_state(state_key: String, new_state) -> void:
 func _initialize():
   set_state("client_view", ClientConstants.CLIENT_VIEW_SPLASH)
   set_state("game", GameConstants.GAME_OVER)
+  set_state("weapons", [ray_gun])
 
 func _ready():
   if Directory.new().file_exists(ClientConstants.CLIENT_PERSISTENT_STORE_PATH):
