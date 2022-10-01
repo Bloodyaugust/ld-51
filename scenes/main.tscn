@@ -152,4 +152,22 @@ anims/ui_show = SubResource( 2 )
 [node name="BetterCam" parent="." instance=ExtResource( 5 )]
 
 [node name="Enemy" parent="." instance=ExtResource( 8 )]
-position = Vector2( 349, 219 )
+position = Vector2( 402, -2 )
+
+[node name="Enemy2" parent="." instance=ExtResource( 8 )]
+position = Vector2( 317, -42 )
+
+[node name="Enemy3" parent="." instance=ExtResource( 8 )]
+position = Vector2( 330, -6 )
+
+[node name="Enemy4" parent="." instance=ExtResource( 8 )]
+position = Vector2( 357, -55 )
+
+[node name="Enemy5" parent="." instance=ExtResource( 8 )]
+position = Vector2( 362, 10 )
+
+[node name="Enemy6" parent="." instance=ExtResource( 8 )]
+position = Vector2( 397, -43 )
+
+[node name="Enemy7" parent="." instance=ExtResource( 8 )]
+position = Vector2( 363, -28 )
