@@ -1,0 +1,9 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://data/upgrade.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+id = "oxygen-tank"
+max_level = 20
+name = "Auxiliary Oxygen Tanks"

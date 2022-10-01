@@ -1,0 +1,13 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://data/weapon.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+cost_per_level = 1
+damage = 1
+fire_interval = 0.5
+flags = "facing"
+id = "ray-gun"
+max_level = 6
+name = "Ray Gun"

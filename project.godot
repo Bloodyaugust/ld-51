@@ -18,10 +18,22 @@ _global_script_classes=[ {
 "class": "UnitData",
 "language": "GDScript",
 "path": "res://data/unit.gd"
+}, {
+"base": "Resource",
+"class": "UpgradeData",
+"language": "GDScript",
+"path": "res://data/upgrade.gd"
+}, {
+"base": "Resource",
+"class": "WeaponData",
+"language": "GDScript",
+"path": "res://data/weapon.gd"
 } ]
 _global_script_class_icons={
 "PersistentStore": "",
-"UnitData": ""
+"UnitData": "",
+"UpgradeData": "",
+"WeaponData": ""
 }
 
 [application]
