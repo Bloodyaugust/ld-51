@@ -10,6 +10,11 @@ onready var _player: Node2D = get_tree().get_nodes_in_group("player")[0]
 var _time_to_attack: float
 
 func hit() -> void:
+  data.health -= 1
+  if data.health <= 0:
+    kill()
+    
+func kill() -> void:
   queue_free()
 
 func _physics_process(_delta: float) -> void:
