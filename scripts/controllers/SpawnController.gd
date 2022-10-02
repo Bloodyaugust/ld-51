@@ -4,12 +4,14 @@ const ENEMY_SPAWN: float = 1.0
 const ATTACK_WAVE_SPAWN: float = 15.0
 const SWARM_SPAWN: float = 30.0
 const ENEMY_SCENE: PackedScene = preload("res://actors/Enemy.tscn")
+const PLAYER_SCENE: PackedScene = preload("res://actors/Player.tscn")
 const ENEMY_DATA: UnitData = preload("res://data/enemies/level-0.tres")
 const SPAWN_DISTANCE: float = 600.0
 
 var _spawn_timer: Timer
 var _attack_timer: Timer
 var _swarm_timer: Timer
+var _player: Node2D
 
 func _initialize() -> void:
   _spawn_timer = Timer.new()
@@ -23,8 +25,26 @@ func _initialize() -> void:
   get_tree().get_root().add_child(_spawn_timer)
   _spawn_timer.start(ENEMY_SPAWN)
   
+func _on_died() -> void:
+  Store.set_state("game", GameConstants.GAME_OVER)
+
+func _on_state_changed(state_key: String, substate):
+  match state_key:
+    "game":
+      match substate:
+        GameConstants.GAME_STARTING:
+          _player = PLAYER_SCENE.instance()
+          _player.connect("died", self, "_on_died")
+          get_tree().get_root().add_child(_player)
+          _initialize()
+          Store.set_state("game", GameConstants.GAME_IN_PROGRESS)
+        GameConstants.GAME_OVER:
+          _spawn_timer.stop()
+          _attack_timer.stop()
+          _swarm_timer.stop()
+  
 func _ready() -> void:
-  call_deferred("_initialize")
+  Store.connect("state_changed", self, "_on_state_changed")
   
 func _spawn_enemies(number: int, unit_data: UnitData) -> void:
   for _i in range(number):

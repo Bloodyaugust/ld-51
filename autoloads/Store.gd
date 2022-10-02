@@ -26,7 +26,6 @@ func set_state(state_key: String, new_state) -> void:
   
 func _initialize():
   set_state("client_view", ClientConstants.CLIENT_VIEW_SPLASH)
-  set_state("game", GameConstants.GAME_OVER)
   set_state("weapons", [ray_gun])
 
 func _ready():

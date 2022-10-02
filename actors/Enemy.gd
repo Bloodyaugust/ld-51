@@ -9,6 +9,7 @@ onready var _player: Node2D = get_tree().get_nodes_in_group("player")[0]
 
 var _health: int
 var _time_to_attack: float
+var _attacked_this_frame: bool
 
 func hit(damage: int) -> void:
   _health -= damage
@@ -20,10 +21,12 @@ func kill() -> void:
   queue_free()
 
 func _attack(player: Node2D) -> void:
+  _attacked_this_frame = true
   player.hit(data.damage)
   _time_to_attack = data.attack_interval
 
 func _physics_process(_delta: float) -> void:
+  _attacked_this_frame = false
   if !GDUtil.reference_safe(_player):
     kill()
     return
@@ -35,11 +38,12 @@ func _physics_process(_delta: float) -> void:
 
   if _time_to_attack <= 0:
     for _i in get_slide_count():
-      var _collision: KinematicCollision2D = get_slide_collision(_i)
-      var _colliding_object: Node = _collision.collider as Node
+      if !_attacked_this_frame:
+        var _collision: KinematicCollision2D = get_slide_collision(_i)
+        var _colliding_object: Node = _collision.collider as Node
 
-      if !_colliding_object.is_in_group("enemies") && _colliding_object.has_method("hit"):
-        _attack(_colliding_object)
+        if !_colliding_object.is_in_group("enemies") && _colliding_object.has_method("hit"):
+          _attack(_colliding_object)
 
 func _process(delta: float) -> void:
   _time_to_attack -= delta

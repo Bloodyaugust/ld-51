@@ -1,5 +1,7 @@
 extends KinematicBody2D
 
+signal died
+
 const MOVE_SPEED_BASE: float = 25.0
 const OXYGEN_CAPACITY_BASE: int = 6
 const WEAPON_SCRIPT := preload("res://scripts/weapon.gd")
@@ -15,11 +17,12 @@ var _oxygen: int
 
 func hit(damage: int) -> void:
   _oxygen -= damage
-  
+  print("hit")
   if _oxygen <= 0:
     _die()
 
 func _die() -> void:
+  emit_signal("died")
   queue_free()
 
 func _on_store_state_changed(state_key: String, substate) -> void:
