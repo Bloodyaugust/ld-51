@@ -24,7 +24,10 @@ func _initialize() -> void:
   _spawn_timer.connect("timeout", self, "_spawn_enemies", [1,ENEMY_DATA])
   get_tree().get_root().add_child(_spawn_timer)
   _spawn_timer.start(ENEMY_SPAWN)
-  
+
+  Store.set_state("weapons", [load("res://data/weapons/ray-gun.tres")])
+  Store.emit_signal("weapon_changed", Store.state.weapons[0], 0)
+
 func _on_died() -> void:
   Store.set_state("game", GameConstants.GAME_OVER)
 

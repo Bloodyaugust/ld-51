@@ -1,6 +1,7 @@
 extends Node
 
 signal state_changed(state_key, substate)
+signal weapon_changed(weapon_data, level)
 
 const ray_gun: WeaponData = preload("res://data/weapons/ray-gun.tres")
 
@@ -26,7 +27,6 @@ func set_state(state_key: String, new_state) -> void:
   
 func _initialize():
   set_state("client_view", ClientConstants.CLIENT_VIEW_SPLASH)
-  set_state("weapons", [ray_gun])
 
 func _ready():
   if Directory.new().file_exists(ClientConstants.CLIENT_PERSISTENT_STORE_PATH):

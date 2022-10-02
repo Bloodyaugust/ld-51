@@ -25,13 +25,11 @@ func _die() -> void:
   emit_signal("died")
   queue_free()
 
-func _on_store_state_changed(state_key: String, substate) -> void:
-  match state_key:
-    "weapons":
-      var new_weapon := WEAPON_SCRIPT.new()
-      new_weapon.data = substate[0]
-      new_weapon.player = self
-      add_child(new_weapon)
+func _on_weapon_changed(weapon_data: WeaponData, _weapon_level: int) -> void:
+  var new_weapon := WEAPON_SCRIPT.new()
+  new_weapon.data = weapon_data
+  new_weapon.player = self
+  add_child(new_weapon)
   
 func _process(delta):
   var _movement: Vector2 = Vector2.ZERO
@@ -54,6 +52,6 @@ func _process(delta):
   move_and_slide(_movement)
 
 func _ready() -> void:
-  Store.connect("state_changed", self, "_on_store_state_changed")
+  Store.connect("weapon_changed", self, "_on_weapon_changed")
 
   _oxygen = oxygen_capacity
