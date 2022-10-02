@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://views/FPS.gd" type="Script" id=1]
 [ext_resource path="res://icon.png" type="Texture" id=2]
@@ -15,6 +15,7 @@
 [ext_resource path="res://scripts/controllers/Music.gd" type="Script" id=13]
 [ext_resource path="res://resources/music/game-1.ogg" type="AudioStream" id=14]
 [ext_resource path="res://views/Options.gd" type="Script" id=15]
+[ext_resource path="res://views/Transition.gd" type="Script" id=16]
 
 [sub_resource type="Animation" id=1]
 resource_name = "ui_show"
@@ -171,6 +172,47 @@ bg_color = Color( 0.278431, 0.588235, 0.709804, 1 )
 
 [sub_resource type="StyleBoxFlat" id=6]
 bg_color = Color( 0.768627, 0.698039, 0.552941, 1 )
+
+[sub_resource type="Animation" id=9]
+resource_name = "transition"
+tracks/0/type = "value"
+tracks/0/path = NodePath("UIRoot/Transition:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.4, 0.6, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 0, 0, 0, 0 ), Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("UIRoot/Transition:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/2/type = "method"
+tracks/2/path = NodePath("UIRoot/Transition")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.5 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "swap_client_state"
+} ]
+}
 
 [node name="Node2D" type="Node2D"]
 
@@ -369,7 +411,7 @@ script = ExtResource( 15 )
 [node name="PanelContainer" type="PanelContainer" parent="UIRoot/Options"]
 margin_left = 10.0
 margin_top = 10.0
-margin_right = 259.0
+margin_right = 10.0
 margin_bottom = 590.0
 
 [node name="MarginContainer" type="MarginContainer" parent="UIRoot/Options/PanelContainer"]
@@ -415,6 +457,18 @@ margin_top = 298.0
 margin_right = 229.0
 margin_bottom = 318.0
 text = "Main Menu"
+
+[node name="Transition" type="ColorRect" parent="UIRoot"]
+pause_mode = 2
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 1 )
+script = ExtResource( 16 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="UIRoot/Transition"]
+root_node = NodePath("../../..")
+anims/transition = SubResource( 9 )
 
 [node name="BetterCam" parent="." groups=["camera"] instance=ExtResource( 5 )]
 

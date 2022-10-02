@@ -28,6 +28,9 @@ func hit(damage: int) -> void:
   if oxygen <= 0:
     _die()
 
+func start_upgrade() -> void:
+  Store.set_state("game", GameConstants.GAME_TRANSITIONING)
+
 func _die() -> void:
   emit_signal("died")
   queue_free()
@@ -54,6 +57,7 @@ func _process(delta):
     can_escape = true
   
   if can_escape && Input.is_action_just_pressed("activate_jetpack"):
+    Store.set_state("game_swap_state", GameConstants.GAME_UPGRADING)
     Store.set_state("game", GameConstants.GAME_ESCAPING)
     _animation_player.play("escape")
   

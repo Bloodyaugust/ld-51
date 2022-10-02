@@ -65,6 +65,20 @@ tracks/1/keys = {
 "method": "play"
 } ]
 }
+tracks/2/type = "method"
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 3 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "start_upgrade"
+} ]
+}
 
 [node name="Player" type="KinematicBody2D" groups=["player"]]
 pause_mode = 2
@@ -79,6 +93,7 @@ unique_name_in_owner = true
 position = Vector2( 9, -1 )
 scale = Vector2( 0.15, 0.15 )
 frames = SubResource( 2 )
+frame = 1
 playing = true
 offset = Vector2( -40, -80 )
 flip_h = true
