@@ -48,6 +48,7 @@ GDUtil="*res://lib/util/GDUtil.gd"
 Store="*res://autoloads/Store.gd"
 ClientConstants="*res://constants/ClientConstants.gd"
 GameConstants="*res://constants/GameConstants.gd"
+SpawnController="*res://scripts/controllers/SpawnController.gd"
 
 [display]
 
