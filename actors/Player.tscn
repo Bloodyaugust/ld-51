@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://actors/Player.gd" type="Script" id=1]
 [ext_resource path="res://sprites/laika-0.png" type="Texture" id=2]
 [ext_resource path="res://sprites/laika-1.png" type="Texture" id=3]
+[ext_resource path="res://sprites/laika-jetpack.png" type="Texture" id=4]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 29.0
@@ -13,9 +14,60 @@ animations = [ {
 "loop": true,
 "name": "default",
 "speed": 2.0
+}, {
+"frames": [ ExtResource( 4 ) ],
+"loop": false,
+"name": "escape",
+"speed": 5.0
 } ]
 
+[sub_resource type="Animation" id=4]
+resource_name = "RESET"
+tracks/0/type = "value"
+tracks/0/path = NodePath("AnimatedSprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 9, -1 ) ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "escape"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("AnimatedSprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 3 ),
+"transitions": PoolRealArray( 3.4822, 1 ),
+"update": 0,
+"values": [ Vector2( 9, -1 ), Vector2( 9, -800 ) ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath("AnimatedSprite")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ "escape", false ],
+"method": "play"
+} ]
+}
+
 [node name="Player" type="KinematicBody2D" groups=["player"]]
+pause_mode = 2
 collision_mask = 2
 script = ExtResource( 1 )
 
@@ -27,7 +79,11 @@ unique_name_in_owner = true
 position = Vector2( 9, -1 )
 scale = Vector2( 0.15, 0.15 )
 frames = SubResource( 2 )
-frame = 1
 playing = true
 offset = Vector2( -40, -80 )
 flip_h = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+anims/RESET = SubResource( 4 )
+anims/escape = SubResource( 3 )

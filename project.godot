@@ -49,6 +49,7 @@ Store="*res://autoloads/Store.gd"
 ClientConstants="*res://constants/ClientConstants.gd"
 GameConstants="*res://constants/GameConstants.gd"
 SpawnController="*res://scripts/controllers/SpawnController.gd"
+UpgradeController="*res://scripts/controllers/UpgradeController.gd"
 
 [display]
 
