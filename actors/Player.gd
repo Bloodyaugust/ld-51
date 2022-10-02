@@ -6,10 +6,14 @@ const MOVE_SPEED_BASE: float = 50.0
 const OXYGEN_CAPACITY_BASE: int = 6
 const WEAPON_SCRIPT := preload("res://scripts/weapon.gd")
 const OXYGEN_USE_INTERVAL: float = 10.0
+const JETPACK_FUEL_PER_SECOND: float = 1.0
+const ESCAPE_JETPACK_FUEL: float = 90.0
 
 var last_move_direction: Vector2 = Vector2.RIGHT
 var oxygen_capacity: int = OXYGEN_CAPACITY_BASE
 var oxygen_interval: float = OXYGEN_USE_INTERVAL
+var jetpack_fuel: float = 0.0
+var can_escape: bool = false
 
 onready var _animated_sprite: AnimatedSprite = $"%AnimatedSprite"
 onready var _background: Sprite = get_tree().get_nodes_in_group("background")[0]
@@ -35,9 +39,16 @@ func _on_weapon_changed(weapon_data: WeaponData, _weapon_level: int) -> void:
 func _process(delta):
   var _movement: Vector2 = Vector2.ZERO
   
+  jetpack_fuel += delta * JETPACK_FUEL_PER_SECOND
   _movement += Vector2(Input.get_axis("move_left", "move_right"), Input.get_axis("move_up", "move_down")).normalized() * MOVE_SPEED_BASE
   
   oxygen_interval -= delta
+  
+  if jetpack_fuel >= ESCAPE_JETPACK_FUEL:
+    can_escape = true
+  
+  if can_escape && Input.is_action_just_pressed("activate_jetpack"):
+    Store.set_state("game", GameConstants.GAME_ESCAPING)
   
   if oxygen_interval <= 0:
     hit(1)
