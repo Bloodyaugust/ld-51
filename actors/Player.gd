@@ -9,6 +9,8 @@ var last_move_direction: Vector2 = Vector2.RIGHT
 var oxygen_capacity: int = OXYGEN_CAPACITY_BASE
 var oxygen_interval: float = OXYGEN_USE_INTERVAL
 
+onready var _animated_sprite: AnimatedSprite = $"%AnimatedSprite"
+
 var _oxygen: int
 
 func hit(damage: int) -> void:
@@ -41,6 +43,10 @@ func _process(delta):
   
   if _movement.normalized().length() > 0.1:
     last_move_direction = _movement.normalized()
+    _animated_sprite.playing = true
+    _animated_sprite.flip_h = last_move_direction.x >= 0
+  else:
+    _animated_sprite.playing = false
   
   move_and_slide(_movement)
 
