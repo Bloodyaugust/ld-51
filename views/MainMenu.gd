@@ -2,9 +2,13 @@ extends Control
 
 onready var _animation_player:AnimationPlayer = find_node("AnimationPlayer")
 onready var _play_button: Button = find_node("Play")
+onready var _options_button: Button = find_node("Options")
 
 func _on_play_button_pressed() -> void:
   Store.start_game()
+
+func _on_options_button_pressed() -> void:
+  Store.set_state("client_view", ClientConstants.CLIENT_VIEW_OPTIONS)
 
 func _on_state_changed(state_key: String, substate):
   match state_key:
@@ -20,5 +24,6 @@ func _on_state_changed(state_key: String, substate):
 
 func _ready():
   _play_button.connect("pressed", self, "_on_play_button_pressed")
+  _options_button.connect("pressed", self, "_on_options_button_pressed")
 
   Store.connect("state_changed", self, "_on_state_changed")

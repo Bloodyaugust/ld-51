@@ -24,11 +24,20 @@ func set_state(state_key: String, new_state) -> void:
   state[state_key] = new_state
   emit_signal("state_changed", state_key, state[state_key])
   print("State changed: ", state_key, " -> ", state[state_key])
-  
+
 func _initialize():
   set_state("client_view", ClientConstants.CLIENT_VIEW_SPLASH)
+  Store.set_state("music_volume", persistent_store.music_volume)
+
+func _on_state_changed(state_key: String, substate) -> void:
+  match state_key:
+    "music_volume":
+      persistent_store.music_volume = substate
+      save_persistent_store()
 
 func _ready():
+  connect("state_changed", self, "_on_state_changed")
+  
   if Directory.new().file_exists(ClientConstants.CLIENT_PERSISTENT_STORE_PATH):
     persistent_store = load(ClientConstants.CLIENT_PERSISTENT_STORE_PATH)
 
