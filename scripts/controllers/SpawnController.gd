@@ -6,6 +6,7 @@ const SWARM_SPAWN: float = 30.0
 const ENEMY_SCENE: PackedScene = preload("res://actors/Enemy.tscn")
 const PLAYER_SCENE: PackedScene = preload("res://actors/Player.tscn")
 const ENEMY_DATA: UnitData = preload("res://data/enemies/level-0.tres")
+const ATTACK_ENEMY_DATA: UnitData = preload("res://data/enemies/fast-attack.tres")
 const SPAWN_DISTANCE: float = 600.0
 
 var _spawn_timer: Timer
@@ -19,7 +20,7 @@ func _initialize() -> void:
   _swarm_timer = Timer.new()
 
   _spawn_timer.connect("timeout", self, "_spawn_enemies", [1, ENEMY_DATA])
-  _attack_timer.connect("timeout", self, "_spawn_enemies", [10, ENEMY_DATA])
+  _attack_timer.connect("timeout", self, "_spawn_enemies", [10, ATTACK_ENEMY_DATA])
   _swarm_timer.connect("timeout", self, "_spawn_enemies", [50, ENEMY_DATA])
   get_tree().get_root().add_child(_spawn_timer)
   get_tree().get_root().add_child(_attack_timer)
@@ -53,9 +54,16 @@ func _ready() -> void:
   Store.connect("state_changed", self, "_on_state_changed")
   
 func _spawn_enemies(number: int, unit_data: UnitData) -> void:
+  var _clump_point: Vector2 = _player.global_position + (Vector2(rand_range(-1.0, 1.0), rand_range(-1.0, 1.0)).normalized() * SPAWN_DISTANCE)
+
   for _i in range(number):
     var _new_enemy: Node2D = ENEMY_SCENE.instance()
     var _player: Node2D = get_tree().get_nodes_in_group("player")[0]
     _new_enemy.data = unit_data
-    _new_enemy.global_position = _player.global_position + (Vector2(rand_range(-1.0, 1.0), rand_range(-1.0, 1.0)).normalized() * SPAWN_DISTANCE)
+
+    if "clump" in unit_data.flags:
+      _new_enemy.global_position = _clump_point + Vector2(randf(), randf())
+    else:
+      _new_enemy.global_position = _player.global_position + (Vector2(rand_range(-1.0, 1.0), rand_range(-1.0, 1.0)).normalized() * SPAWN_DISTANCE)
+
     get_tree().get_root().add_child(_new_enemy)

@@ -4,9 +4,9 @@
 
 [resource]
 script = ExtResource( 1 )
-attack_interval = 0.0
-damage = 3
-flags = "tracking"
-health = 15
-level = 2
-speed = 35.0
+attack_interval = 1.0
+damage = 1
+flags = "clump target_indifferent"
+health = 1
+level = 0
+speed = 150.0

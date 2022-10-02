@@ -146,8 +146,10 @@ stretch_mode = 6
 [node name="AnimationPlayer" type="AnimationPlayer" parent="UIRoot/Splash"]
 anims/ui_show = SubResource( 2 )
 
-[node name="BetterCam" parent="." instance=ExtResource( 5 )]
+[node name="BetterCam" parent="." groups=["camera"] instance=ExtResource( 5 )]
 
-[node name="Background" type="Sprite" parent="."]
+[node name="Background" type="Sprite" parent="BetterCam" groups=["background"]]
 z_index = -1
 texture = ExtResource( 9 )
+region_enabled = true
+region_rect = Rect2( 0, 0, 1024, 600 )

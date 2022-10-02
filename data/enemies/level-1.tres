@@ -4,7 +4,9 @@
 
 [resource]
 script = ExtResource( 1 )
+attack_interval = 0.0
 damage = 2
+flags = "tracking"
 health = 5
 level = 1
 speed = 30.0

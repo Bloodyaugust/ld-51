@@ -11,6 +11,7 @@ onready var _sprite: Sprite = $"%Sprite"
 var _health: int
 var _time_to_attack: float
 var _attacked_this_frame: bool
+var _target_direction: Vector2
 
 func hit(damage: int) -> void:
   _health -= damage
@@ -32,8 +33,16 @@ func _physics_process(_delta: float) -> void:
     kill()
     return
 
-  var _direction: Vector2 = global_position.direction_to(_player.global_position)
-  var _movement: Vector2 = _direction * data.speed
+  var _direction: Vector2 = Vector2.RIGHT
+  var _movement: Vector2 = Vector2.ZERO
+
+  if "target_indifferent" in data.flags:
+    _direction = _target_direction
+    _movement = _direction * data.speed
+
+  if "tracking" in data.flags:
+    _direction = global_position.direction_to(_player.global_position)
+    _movement = _direction * data.speed
 
   move_and_slide(_movement)
   
@@ -56,3 +65,6 @@ func _ready() -> void:
     data = data_default
 
   _health = data.health
+
+  if "target_indifferent" in data.flags:
+    _target_direction = global_position.direction_to(_player.global_position)

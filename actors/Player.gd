@@ -2,7 +2,7 @@ extends KinematicBody2D
 
 signal died
 
-const MOVE_SPEED_BASE: float = 25.0
+const MOVE_SPEED_BASE: float = 50.0
 const OXYGEN_CAPACITY_BASE: int = 6
 const WEAPON_SCRIPT := preload("res://scripts/weapon.gd")
 const OXYGEN_USE_INTERVAL: float = 10.0
@@ -12,6 +12,8 @@ var oxygen_capacity: int = OXYGEN_CAPACITY_BASE
 var oxygen_interval: float = OXYGEN_USE_INTERVAL
 
 onready var _animated_sprite: AnimatedSprite = $"%AnimatedSprite"
+onready var _background: Sprite = get_tree().get_nodes_in_group("background")[0]
+onready var _camera: Camera2D = get_tree().get_nodes_in_group("camera")[0]
 
 var _oxygen: int
 
@@ -49,6 +51,9 @@ func _process(delta):
     _animated_sprite.playing = false
   
   move_and_slide(_movement)
+
+  _camera.set_target_position(global_position)
+  _background.region_rect.position = _background.region_rect.position + (_movement * delta)
 
 func _ready() -> void:
   Store.connect("weapon_changed", self, "_on_weapon_changed")
