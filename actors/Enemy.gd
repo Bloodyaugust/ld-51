@@ -6,6 +6,7 @@ var health: int
 var data: UnitData
 
 onready var _player: Node2D = get_tree().get_nodes_in_group("player")[0]
+onready var _sprite: Sprite = $"%Sprite"
 
 var _health: int
 var _time_to_attack: float
@@ -35,6 +36,8 @@ func _physics_process(_delta: float) -> void:
   var _movement: Vector2 = _direction * data.speed
 
   move_and_slide(_movement)
+  
+  _sprite.flip_h = _movement.x >= 0
 
   if _time_to_attack <= 0:
     for _i in get_slide_count():

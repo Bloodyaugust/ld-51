@@ -17,7 +17,6 @@ var _oxygen: int
 
 func hit(damage: int) -> void:
   _oxygen -= damage
-  print("hit")
   if _oxygen <= 0:
     _die()
 

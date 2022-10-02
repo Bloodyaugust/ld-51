@@ -17,13 +17,16 @@ func _initialize() -> void:
   _spawn_timer = Timer.new()
   _attack_timer = Timer.new()
   _swarm_timer = Timer.new()
-  
-  _attack_timer.wait_time = ATTACK_WAVE_SPAWN
-  _swarm_timer.wait_time = SWARM_SPAWN
-  
-  _spawn_timer.connect("timeout", self, "_spawn_enemies", [1,ENEMY_DATA])
+
+  _spawn_timer.connect("timeout", self, "_spawn_enemies", [1, ENEMY_DATA])
+  _attack_timer.connect("timeout", self, "_spawn_enemies", [10, ENEMY_DATA])
+  _swarm_timer.connect("timeout", self, "_spawn_enemies", [50, ENEMY_DATA])
   get_tree().get_root().add_child(_spawn_timer)
+  get_tree().get_root().add_child(_attack_timer)
+  get_tree().get_root().add_child(_swarm_timer)
   _spawn_timer.start(ENEMY_SPAWN)
+  _attack_timer.start(ATTACK_WAVE_SPAWN)
+  _swarm_timer.start(SWARM_SPAWN)
 
   Store.set_state("weapons", [load("res://data/weapons/ray-gun.tres")])
   Store.emit_signal("weapon_changed", Store.state.weapons[0], 0)
