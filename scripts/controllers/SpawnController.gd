@@ -44,7 +44,7 @@ func _on_state_changed(state_key: String, substate):
           _player.connect("died", self, "_on_died")
           get_tree().get_root().add_child(_player)
           _initialize()
-          Store.set_state("game", GameConstants.GAME_IN_PROGRESS)
+          Store.call_deferred("set_state", "game", GameConstants.GAME_IN_PROGRESS)
         GameConstants.GAME_OVER:
           _spawn_timer.stop()
           _attack_timer.stop()

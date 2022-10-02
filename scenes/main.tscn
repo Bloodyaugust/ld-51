@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://views/FPS.gd" type="Script" id=1]
 [ext_resource path="res://icon.png" type="Texture" id=2]
@@ -6,7 +6,11 @@
 [ext_resource path="res://views/MainMenu.gd" type="Script" id=4]
 [ext_resource path="res://lib/BetterCam.tscn" type="PackedScene" id=5]
 [ext_resource path="res://views/Splash.gd" type="Script" id=6]
+[ext_resource path="res://resources/themes/ld51.tres" type="Theme" id=7]
+[ext_resource path="res://views/components/OxygenTick.tscn" type="PackedScene" id=8]
 [ext_resource path="res://sprites/Background.jpg" type="Texture" id=9]
+[ext_resource path="res://views/OxygenHUD.gd" type="Script" id=10]
+[ext_resource path="res://views/JetpackHUD.gd" type="Script" id=11]
 
 [sub_resource type="Animation" id=1]
 resource_name = "ui_show"
@@ -50,6 +54,120 @@ tracks/1/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
 
+[sub_resource type="Animation" id=3]
+resource_name = "hide"
+tracks/0/type = "value"
+tracks/0/path = NodePath("UIRoot/OxygenHUD:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 1 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("UIRoot/OxygenHUD:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "show"
+tracks/0/type = "value"
+tracks/0/path = NodePath("UIRoot/OxygenHUD:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("UIRoot/OxygenHUD:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
+[sub_resource type="Animation" id=7]
+resource_name = "hide"
+tracks/0/type = "value"
+tracks/0/path = NodePath("UIRoot/JetpackHUD:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 1 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("UIRoot/JetpackHUD:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=8]
+resource_name = "show"
+tracks/0/type = "value"
+tracks/0/path = NodePath("UIRoot/JetpackHUD:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("UIRoot/JetpackHUD:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="StyleBoxFlat" id=5]
+bg_color = Color( 0.278431, 0.588235, 0.709804, 1 )
+
+[sub_resource type="StyleBoxFlat" id=6]
+bg_color = Color( 0.768627, 0.698039, 0.552941, 1 )
+
 [node name="Node2D" type="Node2D"]
 
 [node name="UIRoot" type="CanvasLayer" parent="."]
@@ -60,24 +178,20 @@ anchor_right = 0.5
 anchor_bottom = 1.0
 margin_left = -77.0
 margin_right = 77.0
-theme = ExtResource( 3 )
+theme = ExtResource( 7 )
 custom_constants/margin_top = 40
 custom_constants/margin_bottom = 40
 script = ExtResource( 4 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="PanelContainer" type="PanelContainer" parent="UIRoot/MainMenu"]
+margin_left = 10.0
 margin_top = 40.0
-margin_right = 154.0
+margin_right = 144.0
 margin_bottom = 560.0
 
 [node name="MarginContainer" type="MarginContainer" parent="UIRoot/MainMenu/PanelContainer"]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 147.0
-margin_bottom = 513.0
+margin_right = 134.0
+margin_bottom = 520.0
 custom_constants/margin_right = 20
 custom_constants/margin_top = 20
 custom_constants/margin_left = 20
@@ -86,23 +200,23 @@ custom_constants/margin_bottom = 20
 [node name="VBoxContainer" type="VBoxContainer" parent="UIRoot/MainMenu/PanelContainer/MarginContainer"]
 margin_left = 20.0
 margin_top = 20.0
-margin_right = 120.0
-margin_bottom = 486.0
+margin_right = 114.0
+margin_bottom = 500.0
 custom_constants/separation = 20
 alignment = 1
 
 [node name="Label" type="Label" parent="UIRoot/MainMenu/PanelContainer/MarginContainer/VBoxContainer"]
-margin_top = 190.0
-margin_right = 100.0
-margin_bottom = 214.0
+margin_top = 211.0
+margin_right = 94.0
+margin_bottom = 229.0
 text = "Main Menu"
 align = 1
 valign = 1
 
 [node name="Play" type="Button" parent="UIRoot/MainMenu/PanelContainer/MarginContainer/VBoxContainer"]
-margin_top = 234.0
-margin_right = 100.0
-margin_bottom = 276.736
+margin_top = 249.0
+margin_right = 94.0
+margin_bottom = 269.0
 text = "Play"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="UIRoot/MainMenu"]
@@ -145,6 +259,93 @@ stretch_mode = 6
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="UIRoot/Splash"]
 anims/ui_show = SubResource( 2 )
+
+[node name="OxygenHUD" type="MarginContainer" parent="UIRoot"]
+pause_mode = 2
+visible = false
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -40.0
+margin_bottom = 40.0
+grow_horizontal = 0
+theme = ExtResource( 7 )
+script = ExtResource( 10 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="UIRoot/OxygenHUD"]
+root_node = NodePath("../../..")
+anims/hide = SubResource( 3 )
+anims/show = SubResource( 4 )
+
+[node name="PanelContainer" type="PanelContainer" parent="UIRoot/OxygenHUD"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 30.0
+margin_bottom = 30.0
+
+[node name="OxygenTicks" type="HBoxContainer" parent="UIRoot/OxygenHUD/PanelContainer"]
+unique_name_in_owner = true
+margin_right = 45.0
+margin_bottom = 45.0
+
+[node name="OxygenTick" parent="UIRoot/OxygenHUD/PanelContainer/OxygenTicks" instance=ExtResource( 8 )]
+
+[node name="JetpackHUD" type="MarginContainer" parent="UIRoot"]
+pause_mode = 2
+visible = false
+modulate = Color( 1, 1, 1, 0 )
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_top = -40.0
+margin_right = 40.0
+grow_vertical = 0
+theme = ExtResource( 7 )
+script = ExtResource( 11 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="UIRoot/JetpackHUD"]
+root_node = NodePath("../../..")
+anims/hide = SubResource( 7 )
+anims/show = SubResource( 8 )
+
+[node name="PanelContainer" type="PanelContainer" parent="UIRoot/JetpackHUD"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 240.0
+margin_bottom = 80.0
+
+[node name="MarginContainer" type="MarginContainer" parent="UIRoot/JetpackHUD/PanelContainer"]
+margin_right = 230.0
+margin_bottom = 70.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UIRoot/JetpackHUD/PanelContainer/MarginContainer"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 220.0
+margin_bottom = 60.0
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="UIRoot/JetpackHUD/PanelContainer/MarginContainer/HBoxContainer"]
+margin_right = 50.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 50, 50 )
+texture = ExtResource( 2 )
+expand = true
+
+[node name="CenterContainer" type="CenterContainer" parent="UIRoot/JetpackHUD/PanelContainer/MarginContainer/HBoxContainer"]
+margin_left = 60.0
+margin_right = 210.0
+margin_bottom = 50.0
+
+[node name="JetpackProgress" type="ProgressBar" parent="UIRoot/JetpackHUD/PanelContainer/MarginContainer/HBoxContainer/CenterContainer"]
+unique_name_in_owner = true
+margin_top = 16.0
+margin_right = 150.0
+margin_bottom = 34.0
+rect_min_size = Vector2( 150, 0 )
+custom_colors/font_color = Color( 0.0980392, 0.196078, 0.282353, 1 )
+custom_styles/fg = SubResource( 5 )
+custom_styles/bg = SubResource( 6 )
+max_value = 1.0
+value = 1.0
 
 [node name="BetterCam" parent="." groups=["camera"] instance=ExtResource( 5 )]
 

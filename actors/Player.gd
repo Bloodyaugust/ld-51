@@ -1,6 +1,7 @@
 extends KinematicBody2D
 
 signal died
+signal oxygen_changed(oxygen)
 
 const MOVE_SPEED_BASE: float = 50.0
 const OXYGEN_CAPACITY_BASE: int = 6
@@ -10,6 +11,7 @@ const JETPACK_FUEL_PER_SECOND: float = 1.0
 const ESCAPE_JETPACK_FUEL: float = 5.0
 
 var last_move_direction: Vector2 = Vector2.RIGHT
+var oxygen: int
 var oxygen_capacity: int = OXYGEN_CAPACITY_BASE
 var oxygen_interval: float = OXYGEN_USE_INTERVAL
 var jetpack_fuel: float = 0.0
@@ -20,11 +22,10 @@ onready var _animation_player: AnimationPlayer = $"%AnimationPlayer"
 onready var _background: Sprite = get_tree().get_nodes_in_group("background")[0]
 onready var _camera: Camera2D = get_tree().get_nodes_in_group("camera")[0]
 
-var _oxygen: int
-
 func hit(damage: int) -> void:
-  _oxygen -= damage
-  if _oxygen <= 0:
+  oxygen -= damage
+  emit_signal("oxygen_changed", oxygen)
+  if oxygen <= 0:
     _die()
 
 func _die() -> void:
@@ -75,4 +76,4 @@ func _process(delta):
 func _ready() -> void:
   Store.connect("weapon_changed", self, "_on_weapon_changed")
 
-  _oxygen = oxygen_capacity
+  oxygen = oxygen_capacity
