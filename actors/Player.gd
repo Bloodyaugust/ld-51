@@ -1,9 +1,22 @@
 extends KinematicBody2D
 
 const MOVE_SPEED_BASE: float = 25.0
+const OXYGEN_CAPACITY_BASE: int = 6
 const WEAPON_SCRIPT := preload("res://scripts/weapon.gd")
 
 var last_move_direction: Vector2 = Vector2.RIGHT
+var oxygen_capacity: int = OXYGEN_CAPACITY_BASE
+
+var _oxygen: int
+
+func hit(damage: int) -> void:
+  _oxygen -= damage
+  
+  if _oxygen <= 0:
+    _die()
+
+func _die() -> void:
+  queue_free()
 
 func _on_store_state_changed(state_key: String, substate) -> void:
   match state_key:
@@ -25,3 +38,5 @@ func _process(_delta):
 
 func _ready() -> void:
   Store.connect("state_changed", self, "_on_store_state_changed")
+
+  _oxygen = oxygen_capacity
