@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=2]
+[gd_scene load_steps=35 format=2]
 
 [ext_resource path="res://views/FPS.gd" type="Script" id=1]
 [ext_resource path="res://resources/fonts/questrial-large.tres" type="DynamicFont" id=2]
@@ -7,7 +7,7 @@
 [ext_resource path="res://lib/BetterCam.tscn" type="PackedScene" id=5]
 [ext_resource path="res://views/Splash.gd" type="Script" id=6]
 [ext_resource path="res://resources/themes/ld51.tres" type="Theme" id=7]
-[ext_resource path="res://views/components/OxygenTick.tscn" type="PackedScene" id=8]
+[ext_resource path="res://views/images/oxygen-bar-inner.png" type="Texture" id=8]
 [ext_resource path="res://sprites/Background.jpg" type="Texture" id=9]
 [ext_resource path="res://views/OxygenHUD.gd" type="Script" id=10]
 [ext_resource path="res://views/JetpackHUD.gd" type="Script" id=11]
@@ -26,6 +26,7 @@
 [ext_resource path="res://views/images/splashpage.jpg" type="Texture" id=24]
 [ext_resource path="res://views/images/jetpack.png" type="Texture" id=25]
 [ext_resource path="res://views/images/bottom-hud.png" type="Texture" id=26]
+[ext_resource path="res://views/images/oxygen-bar-outer.png" type="Texture" id=27]
 
 [sub_resource type="Animation" id=1]
 resource_name = "ui_show"
@@ -316,7 +317,7 @@ stretch_mode = 6
 [node name="AnimationPlayer" type="AnimationPlayer" parent="UIRoot/Splash"]
 anims/ui_show = SubResource( 2 )
 
-[node name="OxygenHUD" type="MarginContainer" parent="UIRoot"]
+[node name="OxygenHUD" type="Control" parent="UIRoot"]
 pause_mode = 2
 visible = false
 anchor_left = 1.0
@@ -332,18 +333,38 @@ root_node = NodePath("../../..")
 anims/hide = SubResource( 3 )
 anims/show = SubResource( 4 )
 
-[node name="PanelContainer" type="PanelContainer" parent="UIRoot/OxygenHUD"]
-margin_left = 10.0
-margin_top = 10.0
-margin_right = 30.0
-margin_bottom = 30.0
+[node name="TextureRect" type="TextureRect" parent="UIRoot/OxygenHUD"]
+anchor_left = -0.484
+anchor_top = 7.2
+anchor_right = -0.484
+anchor_bottom = 7.2
+margin_left = -163.64
+margin_top = -288.0
+margin_right = 59.36
+margin_bottom = 63.0
+rect_min_size = Vector2( 223, 351 )
+texture = ExtResource( 27 )
+expand = true
 
-[node name="OxygenTicks" type="HBoxContainer" parent="UIRoot/OxygenHUD/PanelContainer"]
-unique_name_in_owner = true
-margin_right = 45.0
-margin_bottom = 45.0
+[node name="OxygenBar" type="ColorRect" parent="UIRoot/OxygenHUD"]
+anchor_left = -0.575
+anchor_top = 7.25
+anchor_right = -0.575
+anchor_bottom = 7.25
+margin_top = -205.0
+margin_right = 31.0
+margin_bottom = -3.05176e-05
+rect_pivot_offset = Vector2( 0, 205 )
+color = Color( 0.839216, 0.788235, 0.686275, 1 )
 
-[node name="OxygenTick" parent="UIRoot/OxygenHUD/PanelContainer/OxygenTicks" instance=ExtResource( 8 )]
+[node name="TextureRect2" type="TextureRect" parent="UIRoot/OxygenHUD"]
+margin_left = -27.0
+margin_top = 77.0
+margin_right = 12.0
+margin_bottom = 296.0
+rect_min_size = Vector2( 39, 219 )
+texture = ExtResource( 8 )
+expand = true
 
 [node name="JetpackHUD" type="Control" parent="UIRoot"]
 pause_mode = 2
