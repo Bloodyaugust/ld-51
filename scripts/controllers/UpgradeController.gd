@@ -3,6 +3,7 @@ extends Node
 const ITEMS: Array = [
   preload("res://data/items/ray-gun.tres"),
   preload("res://data/items/oxygen-tank.tres"),
+  preload("res://data/items/jetpack-fuel.tres"),
  ]
 
 var _player: Node2D

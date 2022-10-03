@@ -9,7 +9,7 @@ const UPGRADE_SCRIPT := preload("res://scripts/upgrade.gd")
 const WEAPON_SCRIPT := preload("res://scripts/weapon.gd")
 const OXYGEN_USE_INTERVAL: float = 10.0
 const JETPACK_FUEL_PER_SECOND: float = 1.0
-const ESCAPE_JETPACK_FUEL: float = 1.0
+const ESCAPE_JETPACK_FUEL: float = 60.0
 
 onready var items: Node2D = $"%Items"
 
@@ -18,6 +18,7 @@ var oxygen: int
 var oxygen_capacity: int = OXYGEN_CAPACITY_BASE
 var oxygen_interval: float = OXYGEN_USE_INTERVAL
 var jetpack_fuel: float = 0.0
+var jetpack_fuel_rate: float = JETPACK_FUEL_PER_SECOND
 var can_escape: bool = false
 
 onready var _animated_sprite: AnimatedSprite = $"%AnimatedSprite"
@@ -94,7 +95,7 @@ func _process(delta):
   var _movement: Vector2 = Vector2.ZERO
   var _starting_position: Vector2 = global_position
   
-  jetpack_fuel = clamp(jetpack_fuel + delta * JETPACK_FUEL_PER_SECOND, 0.0, ESCAPE_JETPACK_FUEL)
+  jetpack_fuel = clamp(jetpack_fuel + delta * jetpack_fuel_rate, 0.0, ESCAPE_JETPACK_FUEL)
   _movement += Vector2(Input.get_axis("move_left", "move_right"), Input.get_axis("move_up", "move_down")).normalized() * MOVE_SPEED_BASE
   
   oxygen_interval -= delta
