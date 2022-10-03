@@ -589,7 +589,6 @@ text = "25%"
 align = 1
 
 [node name="Options" type="MarginContainer" parent="UIRoot"]
-visible = false
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -250.0

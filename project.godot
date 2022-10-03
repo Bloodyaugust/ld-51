@@ -34,7 +34,9 @@ _global_script_class_icons={
 
 config/name="Laika's Revenge"
 run/main_scene="res://scenes/main.tscn"
-config/icon="res://icon.png"
+config/icon="res://media/icon-128.png"
+config/macos_native_icon="res://media/icon-128.icns"
+config/windows_native_icon="res://media/icon-128.ico"
 
 [autoload]
 
