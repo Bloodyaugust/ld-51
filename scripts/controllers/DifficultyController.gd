@@ -18,7 +18,6 @@ func _on_state_changed(state_key: String, substate):
         GameConstants.GAME_UPGRADING:
           _difficulty_from_levels += DIFFICULTY_PER_LEVEL
           difficulty = STARTING_DIFFICULTY + _difficulty_from_levels
-          print("difficulty: %s" % difficulty)
 
 func _process(delta: float) -> void:
   if Store.state.game == GameConstants.GAME_IN_PROGRESS:

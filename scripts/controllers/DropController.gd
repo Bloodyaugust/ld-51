@@ -33,6 +33,8 @@ func _on_store_state_changed(state_key: String, substate) -> void:
           GDUtil.queue_free_children(_drops_container)
 
 func _ready() -> void:
+  Store.connect("state_changed", self, "_on_store_state_changed")
+
   var _drop_objects: Array = []
   _bag = WEIGHTED_TABLE.new()
 
