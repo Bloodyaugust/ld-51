@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=2]
+[gd_scene load_steps=47 format=2]
 
 [ext_resource path="res://views/FPS.gd" type="Script" id=1]
 [ext_resource path="res://resources/fonts/questrial-large.tres" type="DynamicFont" id=2]
@@ -28,6 +28,8 @@
 [ext_resource path="res://views/images/bottom-hud.png" type="Texture" id=26]
 [ext_resource path="res://views/images/oxygen-bar-outer.png" type="Texture" id=27]
 [ext_resource path="res://views/images/header.png" type="Texture" id=28]
+[ext_resource path="res://views/HowToPlay.gd" type="Script" id=29]
+[ext_resource path="res://resources/fonts/questrial-small.tres" type="DynamicFont" id=30]
 
 [sub_resource type="StyleBoxEmpty" id=10]
 
@@ -252,6 +254,75 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 2, 1 ),
 "update": 0,
 "values": [ -1200.0, 50.0 ]
+}
+
+[sub_resource type="Animation" id=16]
+resource_name = "RESET"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_position:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 33.5 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+
+[sub_resource type="Animation" id=17]
+resource_name = "hide"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_position:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 33.5, -1200.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 1 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+
+[sub_resource type="Animation" id=18]
+resource_name = "show"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_position:y")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 2, 1 ),
+"update": 0,
+"values": [ -1200.0, 33.5 ]
 }
 
 [sub_resource type="Animation" id=9]
@@ -589,6 +660,7 @@ text = "25%"
 align = 1
 
 [node name="Options" type="MarginContainer" parent="UIRoot"]
+visible = false
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -250.0
@@ -669,6 +741,103 @@ text = "Main Menu"
 anims/RESET = SubResource( 13 )
 anims/hide = SubResource( 14 )
 anims/show = SubResource( 15 )
+
+[node name="HowToPlay" type="MarginContainer" parent="UIRoot"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -250.0
+margin_top = -266.5
+margin_right = 250.0
+margin_bottom = 266.5
+grow_horizontal = 2
+rect_min_size = Vector2( 500, 500 )
+theme = ExtResource( 7 )
+script = ExtResource( 29 )
+
+[node name="PanelContainer" type="PanelContainer" parent="UIRoot/HowToPlay"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 490.0
+margin_bottom = 523.0
+
+[node name="MarginContainer" type="MarginContainer" parent="UIRoot/HowToPlay/PanelContainer"]
+margin_right = 480.0
+margin_bottom = 513.0
+custom_constants/margin_right = 30
+custom_constants/margin_top = 46
+custom_constants/margin_left = 30
+custom_constants/margin_bottom = 32
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UIRoot/HowToPlay/PanelContainer/MarginContainer"]
+margin_left = 30.0
+margin_top = 46.0
+margin_right = 450.0
+margin_bottom = 481.0
+
+[node name="Label" type="Label" parent="UIRoot/HowToPlay/PanelContainer/MarginContainer/VBoxContainer"]
+margin_right = 420.0
+margin_bottom = 51.0
+custom_colors/font_color = Color( 0.494118, 0.713726, 0.796078, 1 )
+custom_fonts/font = ExtResource( 23 )
+text = "How to Play"
+align = 1
+
+[node name="Label2" type="Label" parent="UIRoot/HowToPlay/PanelContainer/MarginContainer/VBoxContainer"]
+margin_top = 61.0
+margin_right = 420.0
+margin_bottom = 261.0
+rect_min_size = Vector2( 0, 200 )
+custom_fonts/font = ExtResource( 30 )
+text = "Laika is out for revenge against the sinister alien robots - allies of the Russians who sent her into space against her little doggy will! 
+
+Zap hordes of robots and collect the metal they drop, then jetpack back to your ship replicator to upgrade your abilities. But beware, for every 10 seconds you’re on the planet, you lose precious oxygen! 
+
+"
+align = 1
+autowrap = true
+clip_text = true
+
+[node name="Label3" type="Label" parent="UIRoot/HowToPlay/PanelContainer/MarginContainer/VBoxContainer"]
+margin_top = 271.0
+margin_right = 420.0
+margin_bottom = 305.0
+custom_colors/font_color = Color( 0.494118, 0.713726, 0.796078, 1 )
+custom_fonts/font = ExtResource( 2 )
+text = "Controls"
+align = 1
+
+[node name="Label4" type="Label" parent="UIRoot/HowToPlay/PanelContainer/MarginContainer/VBoxContainer"]
+margin_top = 315.0
+margin_right = 420.0
+margin_bottom = 385.0
+rect_min_size = Vector2( 0, 70 )
+custom_fonts/font = ExtResource( 30 )
+text = "W A S D for movement
+SPACE to use jetpack
+(once it's charged!)"
+align = 1
+autowrap = true
+clip_text = true
+
+[node name="CenterContainer" type="CenterContainer" parent="UIRoot/HowToPlay/PanelContainer/MarginContainer/VBoxContainer"]
+margin_top = 395.0
+margin_right = 420.0
+margin_bottom = 435.0
+
+[node name="MainMenu" type="Button" parent="UIRoot/HowToPlay/PanelContainer/MarginContainer/VBoxContainer/CenterContainer"]
+margin_left = 118.0
+margin_right = 302.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 184, 40 )
+text = "Main Menu"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="UIRoot/HowToPlay"]
+anims/RESET = SubResource( 16 )
+anims/hide = SubResource( 17 )
+anims/show = SubResource( 18 )
 
 [node name="Upgrade" type="Control" parent="UIRoot"]
 pause_mode = 2
