@@ -5,6 +5,7 @@ signal oxygen_changed(oxygen)
 
 const MOVE_SPEED_BASE: float = 50.0
 const OXYGEN_CAPACITY_BASE: int = 6
+const UPGRADE_SCRIPT := preload("res://scripts/upgrade.gd")
 const WEAPON_SCRIPT := preload("res://scripts/weapon.gd")
 const OXYGEN_USE_INTERVAL: float = 10.0
 const JETPACK_FUEL_PER_SECOND: float = 1.0
@@ -63,16 +64,23 @@ func _on_state_changed(state_key: String, substate) -> void:
 
 func _on_item_changed(item_data: ItemData, item_level: int) -> void:
   if item_level == 1:
-    var new_item := WEAPON_SCRIPT.new()
-    new_item.level = 1
+    var new_item
+
+    match item_data.type:
+      "weapon":
+        new_item = WEAPON_SCRIPT.new()
+      "upgrade":
+        new_item = UPGRADE_SCRIPT.new()
+
     new_item.data = item_data
     new_item.player = self
     new_item.pause_mode = Node.PAUSE_MODE_STOP
+    new_item.set_item_level(1)
     items.add_child(new_item)
   else:
     for _item in items.get_children():
       if _item.data.id == item_data.id:
-        _item.level = item_level
+        _item.set_item_level(item_level)
 
   Store.emit_signal("upgraded")
   

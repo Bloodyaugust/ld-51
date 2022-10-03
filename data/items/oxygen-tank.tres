@@ -1,17 +1,17 @@
 [gd_resource type="Resource" load_steps=3 format=2]
 
 [ext_resource path="res://data/item.gd" type="Script" id=1]
-[ext_resource path="res://sprites/ray.png" type="Texture" id=2]
+[ext_resource path="res://sprites/oxygen_tank.png" type="Texture" id=2]
 
 [resource]
 script = ExtResource( 1 )
 cost_per_level = 1
-damage = 1
-fire_interval = 0.5
-flags = "facing"
+damage = 0
+fire_interval = 0.0
+flags = "upgrade"
 icon = ExtResource( 2 )
-id = "ray-gun"
+id = "oxygen-tank"
 max_level = 5
-name = "Ray Gun"
-speed = 150.0
-type = "weapon"
+name = "Oxygen"
+speed = 0.0
+type = "upgrade"
