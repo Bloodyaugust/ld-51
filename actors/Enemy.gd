@@ -8,6 +8,7 @@ var data: UnitData
 onready var _player: Node2D = get_tree().get_nodes_in_group("player")[0]
 onready var _sprite: Sprite = $"%Sprite"
 
+var _dead: bool = false
 var _health: int
 var _time_to_attack: float
 var _attacked_this_frame: bool
@@ -16,10 +17,12 @@ var _target_direction: Vector2
 func hit(damage: int) -> void:
   _health -= damage
 
-  if _health <= 0:
+  if _health <= 0 && !_dead:
     kill()
 
 func kill() -> void:
+  _dead = true
+  DropController.drop(global_position)
   queue_free()
 
 func _attack(player: Node2D) -> void:

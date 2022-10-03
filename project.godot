@@ -10,6 +10,11 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "Resource",
+"class": "DropData",
+"language": "GDScript",
+"path": "res://data/drop.gd"
+}, {
+"base": "Resource",
 "class": "ItemData",
 "language": "GDScript",
 "path": "res://data/item.gd"
@@ -25,6 +30,7 @@ _global_script_classes=[ {
 "path": "res://data/unit.gd"
 } ]
 _global_script_class_icons={
+"DropData": "",
 "ItemData": "",
 "PersistentStore": "",
 "UnitData": ""
@@ -46,6 +52,7 @@ ClientConstants="*res://constants/ClientConstants.gd"
 GameConstants="*res://constants/GameConstants.gd"
 SpawnController="*res://scripts/controllers/SpawnController.gd"
 UpgradeController="*res://scripts/controllers/UpgradeController.gd"
+DropController="*res://scripts/controllers/DropController.gd"
 
 [display]
 

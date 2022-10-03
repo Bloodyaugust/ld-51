@@ -33,6 +33,11 @@ func hit(damage: int) -> void:
     if oxygen <= 0:
       _die()
 
+func refill_oxygen(amount: int) -> void:
+  if !_died:
+    oxygen += amount
+    emit_signal("oxygen_changed", oxygen)
+
 func start_upgrade() -> void:
   Store.set_state("game", GameConstants.GAME_TRANSITIONING)
 
@@ -79,6 +84,7 @@ func _process(delta):
       pass
 
   var _movement: Vector2 = Vector2.ZERO
+  var _starting_position: Vector2 = global_position
   
   jetpack_fuel = clamp(jetpack_fuel + delta * JETPACK_FUEL_PER_SECOND, 0.0, ESCAPE_JETPACK_FUEL)
   _movement += Vector2(Input.get_axis("move_left", "move_right"), Input.get_axis("move_up", "move_down")).normalized() * MOVE_SPEED_BASE
@@ -107,7 +113,7 @@ func _process(delta):
   move_and_slide(_movement)
 
   _camera.set_target_position(global_position)
-  _background.region_rect.position = _background.region_rect.position + (_movement * delta)
+  _background.region_rect.position = _background.region_rect.position + (global_position - _starting_position)
 
 func _ready() -> void:
   Store.connect("state_changed", self, "_on_state_changed")

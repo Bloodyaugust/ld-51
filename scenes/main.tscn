@@ -660,7 +660,6 @@ text = "25%"
 align = 1
 
 [node name="Options" type="MarginContainer" parent="UIRoot"]
-visible = false
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -250.0
@@ -925,3 +924,5 @@ stream = ExtResource( 14 )
 bus = "Music-2"
 
 [node name="Enemies" type="Node2D" parent="."]
+
+[node name="DropsContainer" type="Node2D" parent="."]
