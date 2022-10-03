@@ -1,0 +1,17 @@
+[gd_resource type="Resource" load_steps=3 format=2]
+
+[ext_resource path="res://sprites/tesla.png" type="Texture" id=1]
+[ext_resource path="res://data/item.gd" type="Script" id=2]
+
+[resource]
+script = ExtResource( 2 )
+cost_per_level = 1
+damage = 1
+fire_interval = 0.25
+flags = "targeting"
+icon = ExtResource( 1 )
+id = "tesla-coil"
+max_level = 5
+name = "Tesla Coil"
+speed = 250.0
+type = "weapon"

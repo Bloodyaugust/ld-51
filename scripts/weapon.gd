@@ -22,10 +22,19 @@ func _fire() -> void:
 
   _new_projectile.data = data
   _new_projectile.global_position = player.global_position
+  _new_projectile.direction = Vector2.RIGHT
 
   # TODO: handle direction of projectile for other weapon types
   if "facing" in data.flags: 
     _new_projectile.direction = player.last_move_direction
+
+  if "targeting" in data.flags:
+    var _enemies = get_tree().get_nodes_in_group("enemies")
+
+    _enemies.sort_custom(self, "_sort_distance_to_player")
+
+    if _enemies.size() > 0:
+      _new_projectile.direction = player.global_position.direction_to(_enemies[0].global_position)
 
   get_tree().get_root().add_child(_new_projectile)
 
@@ -39,3 +48,6 @@ func _process(delta: float) -> void:
 func _ready() -> void:
   fire_interval = data.fire_interval
   _time_to_fire = fire_interval
+
+func _sort_distance_to_player(a: Node2D, b: Node2D) -> bool:
+  return (a.global_position.distance_squared_to(player.global_position)) < (b.global_position.distance_squared_to(player.global_position))

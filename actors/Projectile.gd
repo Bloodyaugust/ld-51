@@ -24,3 +24,5 @@ func _process(delta: float) -> void:
 func _ready() -> void:
   _area2d.connect("body_entered", self, "_on_body_entered")
   _visibility_notifier.connect("screen_exited", self, "_on_screen_exited")
+
+  _sprite.texture = data.icon
