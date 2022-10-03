@@ -80,7 +80,7 @@ func _process(delta):
 
   var _movement: Vector2 = Vector2.ZERO
   
-  jetpack_fuel += delta * JETPACK_FUEL_PER_SECOND
+  jetpack_fuel = clamp(jetpack_fuel + delta * JETPACK_FUEL_PER_SECOND, 0.0, ESCAPE_JETPACK_FUEL)
   _movement += Vector2(Input.get_axis("move_left", "move_right"), Input.get_axis("move_up", "move_down")).normalized() * MOVE_SPEED_BASE
   
   oxygen_interval -= delta

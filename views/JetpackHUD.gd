@@ -1,7 +1,8 @@
 extends Control
 
 onready var _animation_player: AnimationPlayer = $"./AnimationPlayer"
-onready var _jetpack_progress: ProgressBar = $"%JetpackProgress"
+onready var _jetpack_progress: Label = $"./JetpackCharge"
+onready var _metal: Label = $"./Metal"
 
 var _player: Node2D
 
@@ -17,7 +18,8 @@ func _on_state_changed(state_key: String, substate):
 
 func _process(delta: float) -> void:
   if Store.state.game == GameConstants.GAME_IN_PROGRESS:
-    _jetpack_progress.value = _player.jetpack_fuel / _player.ESCAPE_JETPACK_FUEL
+    _jetpack_progress.text = "%d%%" % ((_player.jetpack_fuel / _player.ESCAPE_JETPACK_FUEL) * 100)
+    _metal.text = "%s" % Store.state.metal
 
 func _ready():
   Store.connect("state_changed", self, "_on_state_changed")
