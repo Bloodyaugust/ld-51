@@ -147,5 +147,6 @@ margin_top = 11.0
 margin_right = 81.0
 margin_bottom = 51.0
 rect_min_size = Vector2( 81, 40 )
+mouse_default_cursor_shape = 2
 custom_fonts/font = ExtResource( 7 )
 text = "Buy"

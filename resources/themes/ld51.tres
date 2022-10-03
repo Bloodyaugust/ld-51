@@ -1,7 +1,14 @@
-[gd_resource type="Theme" load_steps=8 format=2]
+[gd_resource type="Theme" load_steps=9 format=2]
 
 [ext_resource path="res://resources/fonts/questrial-small.tres" type="DynamicFont" id=1]
 [ext_resource path="res://resources/fonts/questrial-medium.tres" type="DynamicFont" id=2]
+
+[sub_resource type="StyleBoxFlat" id=6]
+bg_color = Color( 0.639216, 0.678431, 0.713726, 1 )
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.494118, 0.713726, 0.796078, 1 )
@@ -38,8 +45,10 @@ corner_radius_bottom_left = 10
 
 [resource]
 default_font = ExtResource( 1 )
+Button/colors/font_color_disabled = Color( 0.368627, 0.439216, 0.498039, 1 )
 Button/colors/font_color_hover = Color( 0.0980392, 0.196078, 0.282353, 1 )
 Button/fonts/font = ExtResource( 2 )
+Button/styles/disabled = SubResource( 6 )
 Button/styles/hover = SubResource( 1 )
 Button/styles/normal = SubResource( 2 )
 Button/styles/pressed = SubResource( 3 )
