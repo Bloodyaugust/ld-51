@@ -12,6 +12,7 @@ func _pickup() -> void:
   match data.id:
     "metal":
       Store.set_state("metal", Store.state.metal + 1)
+      Store.set_state("metal_collected", Store.state.metal_collected + 1)
     "oxygen-tank":
       _player.refill_oxygen(1)
 

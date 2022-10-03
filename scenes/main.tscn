@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=2]
+[gd_scene load_steps=56 format=2]
 
 [ext_resource path="res://views/FPS.gd" type="Script" id=1]
 [ext_resource path="res://resources/fonts/questrial-large.tres" type="DynamicFont" id=2]
@@ -32,6 +32,7 @@
 [ext_resource path="res://resources/fonts/questrial-small.tres" type="DynamicFont" id=30]
 [ext_resource path="res://views/Credits.gd" type="Script" id=31]
 [ext_resource path="res://resources/fonts/questrial-medium.tres" type="DynamicFont" id=32]
+[ext_resource path="res://views/PostGame.gd" type="Script" id=33]
 
 [sub_resource type="StyleBoxEmpty" id=10]
 
@@ -382,6 +383,75 @@ tracks/1/keys = {
 }
 
 [sub_resource type="Animation" id=21]
+resource_name = "show"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_position:y")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 2, 1 ),
+"update": 0,
+"values": [ -1200.0, 33.5 ]
+}
+
+[sub_resource type="Animation" id=22]
+resource_name = "RESET"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_position:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 33.5 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+
+[sub_resource type="Animation" id=23]
+resource_name = "hide"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_position:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 33.5, -1200.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 1 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+
+[sub_resource type="Animation" id=24]
 resource_name = "show"
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:rect_position:y")
@@ -1071,6 +1141,149 @@ text = "Main Menu"
 anims/RESET = SubResource( 19 )
 anims/hide = SubResource( 20 )
 anims/show = SubResource( 21 )
+
+[node name="PostGame" type="MarginContainer" parent="UIRoot"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -250.0
+margin_top = -266.5
+margin_right = 250.0
+margin_bottom = 266.5
+grow_horizontal = 2
+rect_min_size = Vector2( 500, 500 )
+theme = ExtResource( 7 )
+script = ExtResource( 33 )
+
+[node name="PanelContainer" type="PanelContainer" parent="UIRoot/PostGame"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 490.0
+margin_bottom = 523.0
+
+[node name="MarginContainer" type="MarginContainer" parent="UIRoot/PostGame/PanelContainer"]
+margin_right = 480.0
+margin_bottom = 513.0
+custom_constants/margin_right = 60
+custom_constants/margin_top = 46
+custom_constants/margin_left = 60
+custom_constants/margin_bottom = 32
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UIRoot/PostGame/PanelContainer/MarginContainer"]
+margin_left = 60.0
+margin_top = 46.0
+margin_right = 420.0
+margin_bottom = 481.0
+custom_constants/separation = 59
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UIRoot/PostGame/PanelContainer/MarginContainer/VBoxContainer"]
+margin_right = 360.0
+margin_bottom = 95.0
+
+[node name="Label" type="Label" parent="UIRoot/PostGame/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
+margin_right = 360.0
+margin_bottom = 51.0
+custom_colors/font_color = Color( 0.494118, 0.713726, 0.796078, 1 )
+custom_fonts/font = ExtResource( 23 )
+text = "Oh No!"
+align = 1
+
+[node name="Label2" type="Label" parent="UIRoot/PostGame/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
+margin_top = 61.0
+margin_right = 360.0
+margin_bottom = 95.0
+custom_fonts/font = ExtResource( 2 )
+text = "You ran out of air."
+align = 1
+autowrap = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UIRoot/PostGame/PanelContainer/MarginContainer/VBoxContainer"]
+margin_top = 154.0
+margin_right = 360.0
+margin_bottom = 296.0
+custom_constants/separation = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UIRoot/PostGame/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+margin_right = 255.0
+margin_bottom = 142.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 3.0
+custom_constants/separation = 20
+
+[node name="Label" type="Label" parent="UIRoot/PostGame/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+margin_right = 255.0
+margin_bottom = 34.0
+custom_colors/font_color = Color( 0.494118, 0.713726, 0.796078, 1 )
+custom_fonts/font = ExtResource( 2 )
+text = "Time survived:"
+clip_text = true
+
+[node name="Label2" type="Label" parent="UIRoot/PostGame/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+margin_top = 54.0
+margin_right = 255.0
+margin_bottom = 88.0
+custom_colors/font_color = Color( 0.494118, 0.713726, 0.796078, 1 )
+custom_fonts/font = ExtResource( 2 )
+text = "Metal collected:"
+clip_text = true
+
+[node name="Label3" type="Label" parent="UIRoot/PostGame/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+margin_top = 108.0
+margin_right = 255.0
+margin_bottom = 142.0
+custom_colors/font_color = Color( 0.494118, 0.713726, 0.796078, 1 )
+custom_fonts/font = ExtResource( 2 )
+text = "Enemies killed:"
+clip_text = true
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="UIRoot/PostGame/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+margin_left = 275.0
+margin_right = 360.0
+margin_bottom = 142.0
+size_flags_horizontal = 3
+custom_constants/separation = 20
+
+[node name="TimeSurvived" type="Label" parent="UIRoot/PostGame/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+margin_right = 85.0
+margin_bottom = 34.0
+custom_fonts/font = ExtResource( 2 )
+text = "0"
+clip_text = true
+
+[node name="MetalCollected" type="Label" parent="UIRoot/PostGame/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+margin_top = 54.0
+margin_right = 85.0
+margin_bottom = 88.0
+custom_fonts/font = ExtResource( 2 )
+text = "0"
+clip_text = true
+
+[node name="EnemiesKilled" type="Label" parent="UIRoot/PostGame/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+margin_top = 108.0
+margin_right = 85.0
+margin_bottom = 142.0
+custom_fonts/font = ExtResource( 2 )
+text = "0"
+clip_text = true
+
+[node name="CenterContainer" type="CenterContainer" parent="UIRoot/PostGame/PanelContainer/MarginContainer/VBoxContainer"]
+margin_top = 355.0
+margin_right = 360.0
+margin_bottom = 395.0
+
+[node name="MainMenu" type="Button" parent="UIRoot/PostGame/PanelContainer/MarginContainer/VBoxContainer/CenterContainer"]
+margin_left = 88.0
+margin_right = 272.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 184, 40 )
+text = "Main Menu"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="UIRoot/PostGame"]
+anims/RESET = SubResource( 22 )
+anims/hide = SubResource( 23 )
+anims/show = SubResource( 24 )
 
 [node name="Upgrade" type="Control" parent="UIRoot"]
 pause_mode = 2

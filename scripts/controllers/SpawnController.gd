@@ -28,20 +28,15 @@ func _initialize() -> void:
   get_tree().get_root().add_child(_attack_timer)
   get_tree().get_root().add_child(_swarm_timer)
 
-func _on_died() -> void:
-  Store.set_state("game", GameConstants.GAME_OVER)
-
 func _on_state_changed(state_key: String, substate):
   match state_key:
     "game":
       match substate:
         GameConstants.GAME_STARTING:
           _player = PLAYER_SCENE.instance()
-          _player.connect("died", self, "_on_died")
           get_tree().get_root().add_child(_player)
-          # TODO: Nuke the above once upgrade screen is functional
           Store.call_deferred("set_state", "game", GameConstants.GAME_UPGRADING)
-        GameConstants.GAME_ESCAPING, GameConstants.GAME_OVER:
+        GameConstants.GAME_ESCAPING, GameConstants.GAME_OVER, GameConstants.GAME_ENDING, GameConstants.GAME_TRANSITIONING:
           _spawn_timer.stop()
           _attack_timer.stop()
           _swarm_timer.stop()

@@ -11,11 +11,17 @@ var state: Dictionary = {
   "client_view": "",
   "game": "",
   "metal": 50,
+  "metal_collected": 0,
+  "round_length": 0.0,
+  "enemies_killed": 0,
  }
 
 func start_game() -> void:
   set_state("metal", 50)
   set_state("client_view", ClientConstants.CLIENT_VIEW_NONE)
+  set_state("metal_collected", 0)
+  set_state("round_length", 0.0)
+  set_state("enemies_killed", 0)
   state.game_swap_state = GameConstants.GAME_STARTING
   set_state("game", GameConstants.GAME_TRANSITIONING)
 
@@ -43,6 +49,10 @@ func _on_state_changed(state_key: String, substate) -> void:
     "music_volume":
       persistent_store.music_volume = substate
       save_persistent_store()
+
+func _process(delta: float) -> void:
+  if state.game == GameConstants.GAME_IN_PROGRESS:
+    state.round_length += delta
 
 func _ready():
   connect("state_changed", self, "_on_state_changed")

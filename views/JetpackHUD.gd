@@ -13,7 +13,7 @@ func _on_state_changed(state_key: String, substate):
         GameConstants.GAME_IN_PROGRESS:
           _animation_player.play("show")
           _player = get_tree().get_nodes_in_group("player")[0]
-        GameConstants.GAME_ESCAPING, GameConstants.GAME_OVER:
+        GameConstants.GAME_ESCAPING, GameConstants.GAME_ENDING, GameConstants.GAME_TRANSITIONING:
           _animation_player.play("hide")
 
 func _process(delta: float) -> void:

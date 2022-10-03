@@ -19,9 +19,9 @@ func _on_state_changed(state_key: String, substate):
             _player = get_tree().get_nodes_in_group("player")[0]
             _player.connect("oxygen_changed", self, "_on_oxygen_changed")
             _oxygen_bar.rect_scale = Vector2(1, 1)
-        GameConstants.GAME_ESCAPING:
+        GameConstants.GAME_ESCAPING, GameConstants.GAME_TRANSITIONING:
           _animation_player.play("hide")
-        GameConstants.GAME_OVER:
+        GameConstants.GAME_ENDING:
           _animation_player.play("hide")
           _player = null
 

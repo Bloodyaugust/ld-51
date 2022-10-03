@@ -35,7 +35,7 @@ func hit(damage: int) -> void:
 
 func refill_oxygen(amount: int) -> void:
   if !_died:
-    oxygen += amount
+    oxygen = int(clamp(oxygen + amount, 1, oxygen_capacity))
     emit_signal("oxygen_changed", oxygen)
 
 func start_upgrade() -> void:
@@ -45,7 +45,7 @@ func _die() -> void:
   _died = true
   emit_signal("died")
   queue_free()
-  Store.set_state("game_swap_state", GameConstants.GAME_OVER)
+  Store.set_state("game_swap_state", GameConstants.GAME_ENDING)
   Store.set_state("game", GameConstants.GAME_TRANSITIONING)
   Store.set_state("client_view", ClientConstants.CLIENT_VIEW_NONE)
 

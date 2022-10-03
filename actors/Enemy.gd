@@ -23,6 +23,7 @@ func hit(damage: int) -> void:
 func kill() -> void:
   _dead = true
   DropController.drop(global_position)
+  Store.set_state("enemies_killed", Store.state.enemies_killed + 1)
   queue_free()
 
 func _attack(player: Node2D) -> void:
@@ -33,7 +34,8 @@ func _attack(player: Node2D) -> void:
 func _physics_process(_delta: float) -> void:
   _attacked_this_frame = false
   if !GDUtil.reference_safe(_player):
-    kill()
+    _dead = true
+    queue_free()
     return
 
   var _direction: Vector2 = Vector2.RIGHT
