@@ -7,3 +7,4 @@ export var flags: String
 export var health: int
 export var level: int
 export var speed: float
+export var sprite: Texture

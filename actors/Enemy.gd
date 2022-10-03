@@ -70,6 +70,7 @@ func _ready() -> void:
     data = data_default
 
   _health = data.health
+  _sprite.texture = data.sprite
 
   if "target_indifferent" in data.flags:
     _target_direction = global_position.direction_to(_player.global_position)
