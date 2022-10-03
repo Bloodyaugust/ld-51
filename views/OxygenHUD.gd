@@ -32,11 +32,17 @@ func _on_state_changed(state_key: String, substate):
       match substate:
         GameConstants.GAME_IN_PROGRESS:
           _animation_player.play("show")
-          _player = get_tree().get_nodes_in_group("player")[0]
-          _player.connect("oxygen_changed", self, "_on_oxygen_changed")
+
+          if !_player:
+            _player = get_tree().get_nodes_in_group("player")[0]
+            _player.connect("oxygen_changed", self, "_on_oxygen_changed")
+
           _initialize_oxygen_ticks()
-        GameConstants.GAME_ESCAPING, GameConstants.GAME_OVER:
+        GameConstants.GAME_ESCAPING:
           _animation_player.play("hide")
+        GameConstants.GAME_OVER:
+          _animation_player.play("hide")
+          _player = null
 
 func _ready():
   Store.connect("state_changed", self, "_on_state_changed")

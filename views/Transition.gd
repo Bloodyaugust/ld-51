@@ -3,6 +3,7 @@ extends Control
 onready var _animation_player: AnimationPlayer = find_node("AnimationPlayer")
 
 func swap_game_state() -> void:
+  print("swapping game state to: " + Store.state.game_swap_state)
   Store.set_state("game", Store.state.game_swap_state)
 
 func _on_state_changed(state_key: String, substate):

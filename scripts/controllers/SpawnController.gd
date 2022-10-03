@@ -9,6 +9,8 @@ const ENEMY_DATA: UnitData = preload("res://data/enemies/level-0.tres")
 const ATTACK_ENEMY_DATA: UnitData = preload("res://data/enemies/fast-attack.tres")
 const SPAWN_DISTANCE: float = 600.0
 
+onready var _enemies_container: Node2D = get_tree().get_root().find_node("Enemies", true, false)
+
 var _spawn_timer: Timer
 var _attack_timer: Timer
 var _swarm_timer: Timer
@@ -25,12 +27,6 @@ func _initialize() -> void:
   get_tree().get_root().add_child(_spawn_timer)
   get_tree().get_root().add_child(_attack_timer)
   get_tree().get_root().add_child(_swarm_timer)
-  _spawn_timer.start(ENEMY_SPAWN)
-  _attack_timer.start(ATTACK_WAVE_SPAWN)
-  _swarm_timer.start(SWARM_SPAWN)
-
-  Store.set_state("weapons", [load("res://data/weapons/ray-gun.tres")])
-  Store.emit_signal("weapon_changed", Store.state.weapons[0], 0)
 
 func _on_died() -> void:
   Store.set_state("game", GameConstants.GAME_OVER)
@@ -43,15 +39,23 @@ func _on_state_changed(state_key: String, substate):
           _player = PLAYER_SCENE.instance()
           _player.connect("died", self, "_on_died")
           get_tree().get_root().add_child(_player)
-          _initialize()
-          Store.call_deferred("set_state", "game", GameConstants.GAME_IN_PROGRESS)
-        GameConstants.GAME_OVER:
+          Store.set_state("weapons", [load("res://data/weapons/ray-gun.tres")])
+          Store.emit_signal("weapon_changed", Store.state.weapons[0], 0)
+          # TODO: Nuke the above once upgrade screen is functional
+          Store.call_deferred("set_state", "game", GameConstants.GAME_UPGRADING)
+        GameConstants.GAME_ESCAPING, GameConstants.GAME_OVER:
           _spawn_timer.stop()
           _attack_timer.stop()
           _swarm_timer.stop()
+        GameConstants.GAME_IN_PROGRESS:
+          GDUtil.queue_free_children(_enemies_container)
+          _spawn_timer.start(ENEMY_SPAWN)
+          _attack_timer.start(ATTACK_WAVE_SPAWN)
+          _swarm_timer.start(SWARM_SPAWN)
   
 func _ready() -> void:
   Store.connect("state_changed", self, "_on_state_changed")
+  call_deferred("_initialize")
   
 func _spawn_enemies(number: int, unit_data: UnitData) -> void:
   var _clump_point: Vector2 = _player.global_position + (Vector2(rand_range(-1.0, 1.0), rand_range(-1.0, 1.0)).normalized() * SPAWN_DISTANCE)
@@ -66,4 +70,4 @@ func _spawn_enemies(number: int, unit_data: UnitData) -> void:
     else:
       _new_enemy.global_position = _player.global_position + (Vector2(rand_range(-1.0, 1.0), rand_range(-1.0, 1.0)).normalized() * SPAWN_DISTANCE)
 
-    get_tree().get_root().add_child(_new_enemy)
+    _enemies_container.add_child(_new_enemy)

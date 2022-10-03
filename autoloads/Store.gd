@@ -14,7 +14,8 @@ var state: Dictionary = {
 
 func start_game() -> void:
   set_state("client_view", ClientConstants.CLIENT_VIEW_NONE)
-  set_state("game", GameConstants.GAME_STARTING)
+  state.game_swap_state = GameConstants.GAME_STARTING
+  set_state("game", GameConstants.GAME_TRANSITIONING)
 
 func save_persistent_store() -> void:
   if ResourceSaver.save(ClientConstants.CLIENT_PERSISTENT_STORE_PATH, persistent_store) != OK:
@@ -31,6 +32,10 @@ func _initialize():
 
 func _on_state_changed(state_key: String, substate) -> void:
   match state_key:
+    "game":
+      match substate:
+        GameConstants.GAME_OVER:
+          set_state("client_view", ClientConstants.CLIENT_VIEW_MAIN_MENU)
     "music_volume":
       persistent_store.music_volume = substate
       save_persistent_store()

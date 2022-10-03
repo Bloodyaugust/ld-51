@@ -13,7 +13,7 @@ func _on_state_changed(state_key: String, substate) -> void:
         GameConstants.GAME_OVER:
           _title_music.play()
           _game_music_1.stop()
-        GameConstants.GAME_STARTING:
+        GameConstants.GAME_IN_PROGRESS:
           _title_music.stop()
           _game_music_1.play()
 

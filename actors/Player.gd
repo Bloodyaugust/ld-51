@@ -8,7 +8,7 @@ const OXYGEN_CAPACITY_BASE: int = 6
 const WEAPON_SCRIPT := preload("res://scripts/weapon.gd")
 const OXYGEN_USE_INTERVAL: float = 10.0
 const JETPACK_FUEL_PER_SECOND: float = 1.0
-const ESCAPE_JETPACK_FUEL: float = 5.0
+const ESCAPE_JETPACK_FUEL: float = 1.0
 
 var last_move_direction: Vector2 = Vector2.RIGHT
 var oxygen: int
@@ -22,18 +22,37 @@ onready var _animation_player: AnimationPlayer = $"%AnimationPlayer"
 onready var _background: Sprite = get_tree().get_nodes_in_group("background")[0]
 onready var _camera: Camera2D = get_tree().get_nodes_in_group("camera")[0]
 
+var _died: bool = false
+
 func hit(damage: int) -> void:
-  oxygen -= damage
-  emit_signal("oxygen_changed", oxygen)
-  if oxygen <= 0:
-    _die()
+  if !_died:
+    oxygen -= damage
+    emit_signal("oxygen_changed", oxygen)
+    if oxygen <= 0:
+      _die()
 
 func start_upgrade() -> void:
   Store.set_state("game", GameConstants.GAME_TRANSITIONING)
 
 func _die() -> void:
+  _died = true
   emit_signal("died")
   queue_free()
+  Store.set_state("game_swap_state", GameConstants.GAME_OVER)
+  Store.set_state("game", GameConstants.GAME_TRANSITIONING)
+  Store.set_state("client_view", ClientConstants.CLIENT_VIEW_NONE)
+
+func _on_state_changed(state_key: String, substate) -> void:
+  match state_key:
+    "game":
+      match substate:
+        GameConstants.GAME_IN_PROGRESS:
+          global_position = Vector2.ZERO
+          _animated_sprite.global_position = Vector2.ZERO
+          _animated_sprite.animation = "default"
+          jetpack_fuel = 0
+          oxygen = oxygen_capacity
+          get_tree().paused = false
 
 func _on_weapon_changed(weapon_data: WeaponData, _weapon_level: int) -> void:
   var new_weapon := WEAPON_SCRIPT.new()
@@ -78,6 +97,7 @@ func _process(delta):
   _background.region_rect.position = _background.region_rect.position + (_movement * delta)
 
 func _ready() -> void:
+  Store.connect("state_changed", self, "_on_state_changed")
   Store.connect("weapon_changed", self, "_on_weapon_changed")
 
   oxygen = oxygen_capacity

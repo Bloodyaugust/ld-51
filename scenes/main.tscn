@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://views/FPS.gd" type="Script" id=1]
 [ext_resource path="res://icon.png" type="Texture" id=2]
@@ -16,6 +16,7 @@
 [ext_resource path="res://resources/music/game-1.ogg" type="AudioStream" id=14]
 [ext_resource path="res://views/Options.gd" type="Script" id=15]
 [ext_resource path="res://views/Transition.gd" type="Script" id=16]
+[ext_resource path="res://views/Upgrade.gd" type="Script" id=17]
 
 [sub_resource type="Animation" id=1]
 resource_name = "ui_show"
@@ -210,7 +211,7 @@ tracks/2/keys = {
 "transitions": PoolRealArray( 1 ),
 "values": [ {
 "args": [  ],
-"method": "swap_client_state"
+"method": "swap_game_state"
 } ]
 }
 
@@ -458,6 +459,35 @@ margin_right = 229.0
 margin_bottom = 318.0
 text = "Main Menu"
 
+[node name="Upgrade" type="MarginContainer" parent="UIRoot"]
+pause_mode = 2
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 7 )
+custom_constants/margin_right = 0
+custom_constants/margin_top = 0
+custom_constants/margin_left = 0
+custom_constants/margin_bottom = 0
+script = ExtResource( 17 )
+
+[node name="TextureRect" type="TextureRect" parent="UIRoot/Upgrade"]
+margin_right = 1024.0
+margin_bottom = 600.0
+texture = ExtResource( 2 )
+expand = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UIRoot/Upgrade"]
+margin_right = 1024.0
+margin_bottom = 600.0
+alignment = 1
+
+[node name="Return" type="Button" parent="UIRoot/Upgrade/VBoxContainer"]
+margin_top = 290.0
+margin_right = 1024.0
+margin_bottom = 310.0
+text = "Return to planet"
+
 [node name="Transition" type="ColorRect" parent="UIRoot"]
 pause_mode = 2
 visible = false
@@ -491,3 +521,5 @@ bus = "Music-1"
 unique_name_in_owner = true
 stream = ExtResource( 14 )
 bus = "Music-2"
+
+[node name="Enemies" type="Node2D" parent="."]
