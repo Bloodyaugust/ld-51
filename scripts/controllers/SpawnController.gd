@@ -1,8 +1,8 @@
 extends Node2D
 
-const ENEMY_SPAWN: float = 1.0
+const ENEMY_SPAWN: float = 0.75
 const ATTACK_WAVE_SPAWN: float = 15.0
-const SWARM_SPAWN: float = 30.0
+const SWARM_SPAWN: float = 60.0
 const ENEMY_SCENE: PackedScene = preload("res://actors/Enemy.tscn")
 const PLAYER_SCENE: PackedScene = preload("res://actors/Player.tscn")
 const ENEMY_DATA: UnitData = preload("res://data/enemies/level-0.tres")

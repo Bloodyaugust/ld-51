@@ -23,6 +23,7 @@ func _fire() -> void:
   _new_projectile.data = data
   _new_projectile.global_position = player.global_position
   _new_projectile.direction = Vector2.RIGHT
+  _new_projectile.weapon = self
 
   # TODO: handle direction of projectile for other weapon types
   if "facing" in data.flags: 

@@ -10,14 +10,14 @@ var persistent_store:PersistentStore
 var state: Dictionary = {
   "client_view": "",
   "game": "",
-  "metal": 50,
+  "metal": 40,
   "metal_collected": 0,
   "round_length": 0.0,
   "enemies_killed": 0,
  }
 
 func start_game() -> void:
-  set_state("metal", 50)
+  set_state("metal", 40)
   set_state("client_view", ClientConstants.CLIENT_VIEW_NONE)
   set_state("metal_collected", 0)
   set_state("round_length", 0.0)

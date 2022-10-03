@@ -5,9 +5,9 @@
 
 [resource]
 script = ExtResource( 2 )
-cost_per_level = 1
-damage = 1
-fire_interval = 0.25
+cost_per_level = 40
+damage = 2
+fire_interval = 1.0
 flags = "targeting"
 icon = ExtResource( 1 )
 id = "tesla-coil"

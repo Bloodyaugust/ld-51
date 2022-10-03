@@ -5,9 +5,9 @@
 
 [resource]
 script = ExtResource( 1 )
-cost_per_level = 1
-damage = 1
-fire_interval = 0.5
+cost_per_level = 25
+damage = 4
+fire_interval = 0.75
 flags = "facing"
 icon = ExtResource( 2 )
 id = "ray-gun"

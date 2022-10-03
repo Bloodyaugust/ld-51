@@ -1,7 +1,7 @@
 extends Control
 
 const DIFFICULTY_PER_LEVEL: float = 1.0
-const DIFFICULTY_PER_SECOND: float = 0.1
+const DIFFICULTY_PER_SECOND: float = 0.01
 const STARTING_DIFFICULTY: float = 0.0
 
 var difficulty: float = STARTING_DIFFICULTY

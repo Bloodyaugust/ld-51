@@ -2,6 +2,7 @@ extends Node2D
 
 var data: ItemData
 var direction: Vector2
+var weapon: Node
 
 onready var _area2d: Area2D = $"%Area2D"
 onready var _sprite: Sprite = $"%Sprite"
@@ -9,7 +10,7 @@ onready var _visibility_notifier: VisibilityNotifier2D = $"%VisibilityNotifier2D
 
 func _on_body_entered(body: Node) -> void:
   if body.has_method("hit"):
-    body.hit(data.damage)
+    body.hit(data.damage + weapon.level)
   queue_free()
 
 func _on_screen_exited() -> void:
