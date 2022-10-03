@@ -3,7 +3,7 @@ extends Control
 const ITEM_COMPONENT: PackedScene = preload("res://views/components/Item.tscn")
 
 onready var _purchasables: Control = $"%Purchasables"
-onready var _return_to_planet: Button = find_node("Return")
+onready var _return_to_planet: TextureButton = find_node("Return")
 onready var _metal: Label = find_node("Metal")
 
 func _on_upgraded() -> void:
@@ -40,6 +40,6 @@ func _show():
     _new_item_component.data = _item
     _purchasables.add_child(_new_item_component)
 
-  _metal.text = "Metal: %s" % Store.state.metal
+  _metal.text = "%s" % Store.state.metal
 
   visible = true

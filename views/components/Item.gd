@@ -20,7 +20,7 @@ func _ready() -> void:
   
   _buy_button.disabled = !data.purchasable
   _cost.text = "%s" % data.cost
-  _icon.texture = load("res://icon.png")
+  _icon.texture = data.data.icon
   _name.text = data.data.name
 
   _update_level()

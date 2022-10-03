@@ -72,9 +72,12 @@ func _on_item_changed(item_data: ItemData, item_level: int) -> void:
   Store.emit_signal("upgraded")
   
 func _process(delta):
-  if Store.state.game == GameConstants.GAME_ESCAPING:
-    return
-    
+  match Store.state.game:
+    GameConstants.GAME_ESCAPING, GameConstants.GAME_UPGRADING, GameConstants.GAME_TRANSITIONING:
+      return
+    _:
+      pass
+
   var _movement: Vector2 = Vector2.ZERO
   
   jetpack_fuel += delta * JETPACK_FUEL_PER_SECOND

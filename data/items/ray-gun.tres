@@ -1,6 +1,7 @@
-[gd_resource type="Resource" load_steps=2 format=2]
+[gd_resource type="Resource" load_steps=3 format=2]
 
 [ext_resource path="res://data/item.gd" type="Script" id=1]
+[ext_resource path="res://sprites/ray.png" type="Texture" id=2]
 
 [resource]
 script = ExtResource( 1 )
@@ -8,8 +9,9 @@ cost_per_level = 1
 damage = 1
 fire_interval = 0.5
 flags = "facing"
+icon = ExtResource( 2 )
 id = "ray-gun"
 max_level = 6
 name = "Ray Gun"
 speed = 150.0
-type = ""
+type = "weapon"

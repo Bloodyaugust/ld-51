@@ -32,7 +32,7 @@ _global_script_class_icons={
 
 [application]
 
-config/name="LD 51"
+config/name="Laika's Revenge"
 run/main_scene="res://scenes/main.tscn"
 config/icon="res://icon.png"
 
