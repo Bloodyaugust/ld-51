@@ -46,10 +46,10 @@ func start_upgrade() -> void:
 func _die() -> void:
   _died = true
   emit_signal("died")
-  queue_free()
   Store.set_state("game_swap_state", GameConstants.GAME_ENDING)
   Store.set_state("game", GameConstants.GAME_TRANSITIONING)
   Store.set_state("client_view", ClientConstants.CLIENT_VIEW_NONE)
+  queue_free()
 
 func _on_state_changed(state_key: String, substate) -> void:
   match state_key:

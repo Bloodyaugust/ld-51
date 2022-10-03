@@ -53,6 +53,7 @@ GameConstants="*res://constants/GameConstants.gd"
 SpawnController="*res://scripts/controllers/SpawnController.gd"
 UpgradeController="*res://scripts/controllers/UpgradeController.gd"
 DropController="*res://scripts/controllers/DropController.gd"
+DifficultyController="*res://scripts/controllers/DifficultyController.gd"
 
 [display]
 

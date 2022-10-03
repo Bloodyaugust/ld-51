@@ -69,7 +69,7 @@ func _ready() -> void:
   if !data:
     data = data_default
 
-  _health = data.health
+  _health = data.health + int(DifficultyController.difficulty)
   _sprite.texture = data.sprite
 
   if "target_indifferent" in data.flags:

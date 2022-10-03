@@ -15,12 +15,14 @@ func _on_state_changed(state_key: String, substate):
     "game":
       match substate:
         GameConstants.GAME_ENDING:
+          print("game ending, showing postgame")
           _time_survived.text = "%ds" % Store.state.round_length
           _metal_collected.text = "%s" % Store.state.metal_collected
           _enemies_killed.text = "%s" % Store.state.enemies_killed
           visible = true
           _animation_player.play("show")
-        _:
+        GameConstants.GAME_OVER:
+          print("game over, hiding postgame")
           _animation_player.play("hide")
 
 func _ready():
