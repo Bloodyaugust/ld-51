@@ -1,18 +1,20 @@
 extends Node
 
+signal item_changed(item_data, level)
 signal state_changed(state_key, substate)
-signal weapon_changed(weapon_data, level)
+signal upgraded
 
-const ray_gun: WeaponData = preload("res://data/weapons/ray-gun.tres")
+const ray_gun: ItemData = preload("res://data/items/ray-gun.tres")
 
 var persistent_store:PersistentStore
 var state: Dictionary = {
   "client_view": "",
   "game": "",
-  "weapons": []
+  "metal": 50,
  }
 
 func start_game() -> void:
+  set_state("metal", 50)
   set_state("client_view", ClientConstants.CLIENT_VIEW_NONE)
   state.game_swap_state = GameConstants.GAME_STARTING
   set_state("game", GameConstants.GAME_TRANSITIONING)
@@ -34,6 +36,8 @@ func _on_state_changed(state_key: String, substate) -> void:
   match state_key:
     "game":
       match substate:
+        GameConstants.GAME_ESCAPING, GameConstants.GAME_UPGRADING:
+          get_tree().paused = true
         GameConstants.GAME_OVER:
           set_state("client_view", ClientConstants.CLIENT_VIEW_MAIN_MENU)
     "music_volume":

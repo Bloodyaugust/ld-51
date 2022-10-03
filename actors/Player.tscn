@@ -101,3 +101,6 @@ flip_h = true
 unique_name_in_owner = true
 anims/RESET = SubResource( 4 )
 anims/escape = SubResource( 3 )
+
+[node name="Items" type="Node2D" parent="."]
+unique_name_in_owner = true

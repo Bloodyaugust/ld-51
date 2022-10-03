@@ -1,6 +1,6 @@
 extends Node2D
 
-var data: WeaponData
+var data: ItemData
 var direction: Vector2
 
 onready var _area2d: Area2D = $"%Area2D"

@@ -10,6 +10,11 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "Resource",
+"class": "ItemData",
+"language": "GDScript",
+"path": "res://data/item.gd"
+}, {
+"base": "Resource",
 "class": "PersistentStore",
 "language": "GDScript",
 "path": "res://scripts/classes/PersistentStore.gd"
@@ -18,22 +23,11 @@ _global_script_classes=[ {
 "class": "UnitData",
 "language": "GDScript",
 "path": "res://data/unit.gd"
-}, {
-"base": "Resource",
-"class": "UpgradeData",
-"language": "GDScript",
-"path": "res://data/upgrade.gd"
-}, {
-"base": "Resource",
-"class": "WeaponData",
-"language": "GDScript",
-"path": "res://data/weapon.gd"
 } ]
 _global_script_class_icons={
+"ItemData": "",
 "PersistentStore": "",
-"UnitData": "",
-"UpgradeData": "",
-"WeaponData": ""
+"UnitData": ""
 }
 
 [application]

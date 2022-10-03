@@ -10,6 +10,8 @@ const OXYGEN_USE_INTERVAL: float = 10.0
 const JETPACK_FUEL_PER_SECOND: float = 1.0
 const ESCAPE_JETPACK_FUEL: float = 1.0
 
+onready var items: Node2D = $"%Items"
+
 var last_move_direction: Vector2 = Vector2.RIGHT
 var oxygen: int
 var oxygen_capacity: int = OXYGEN_CAPACITY_BASE
@@ -54,12 +56,20 @@ func _on_state_changed(state_key: String, substate) -> void:
           oxygen = oxygen_capacity
           get_tree().paused = false
 
-func _on_weapon_changed(weapon_data: WeaponData, _weapon_level: int) -> void:
-  var new_weapon := WEAPON_SCRIPT.new()
-  new_weapon.data = weapon_data
-  new_weapon.player = self
-  new_weapon.pause_mode = Node.PAUSE_MODE_STOP
-  add_child(new_weapon)
+func _on_item_changed(item_data: ItemData, item_level: int) -> void:
+  if item_level == 1:
+    var new_item := WEAPON_SCRIPT.new()
+    new_item.level = 1
+    new_item.data = item_data
+    new_item.player = self
+    new_item.pause_mode = Node.PAUSE_MODE_STOP
+    items.add_child(new_item)
+  else:
+    for _item in items.get_children():
+      if _item.data.id == item_data.id:
+        _item.level = item_level
+
+  Store.emit_signal("upgraded")
   
 func _process(delta):
   if Store.state.game == GameConstants.GAME_ESCAPING:
@@ -98,6 +108,6 @@ func _process(delta):
 
 func _ready() -> void:
   Store.connect("state_changed", self, "_on_state_changed")
-  Store.connect("weapon_changed", self, "_on_weapon_changed")
+  Store.connect("item_changed", self, "_on_item_changed")
 
   oxygen = oxygen_capacity

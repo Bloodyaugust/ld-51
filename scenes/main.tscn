@@ -482,11 +482,22 @@ margin_right = 1024.0
 margin_bottom = 600.0
 alignment = 1
 
-[node name="Return" type="Button" parent="UIRoot/Upgrade/VBoxContainer"]
-margin_top = 290.0
+[node name="Metal" type="Label" parent="UIRoot/Upgrade/VBoxContainer"]
+margin_top = 271.0
 margin_right = 1024.0
-margin_bottom = 310.0
+margin_bottom = 289.0
+
+[node name="Return" type="Button" parent="UIRoot/Upgrade/VBoxContainer"]
+margin_top = 299.0
+margin_right = 1024.0
+margin_bottom = 319.0
 text = "Return to planet"
+
+[node name="Purchasables" type="VBoxContainer" parent="UIRoot/Upgrade/VBoxContainer"]
+unique_name_in_owner = true
+margin_top = 329.0
+margin_right = 1024.0
+margin_bottom = 329.0
 
 [node name="Transition" type="ColorRect" parent="UIRoot"]
 pause_mode = 2

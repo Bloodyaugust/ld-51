@@ -39,8 +39,6 @@ func _on_state_changed(state_key: String, substate):
           _player = PLAYER_SCENE.instance()
           _player.connect("died", self, "_on_died")
           get_tree().get_root().add_child(_player)
-          Store.set_state("weapons", [load("res://data/weapons/ray-gun.tres")])
-          Store.emit_signal("weapon_changed", Store.state.weapons[0], 0)
           # TODO: Nuke the above once upgrade screen is functional
           Store.call_deferred("set_state", "game", GameConstants.GAME_UPGRADING)
         GameConstants.GAME_ESCAPING, GameConstants.GAME_OVER:

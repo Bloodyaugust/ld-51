@@ -2,7 +2,8 @@ extends Node
 
 const PROJECTILE_SCENE: PackedScene = preload("res://actors/Projectile.tscn")
 
-var data: WeaponData
+var data: ItemData
+var level: int = 0
 var player: Node2D
 
 var _time_to_fire: float

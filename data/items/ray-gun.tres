@@ -1,6 +1,6 @@
 [gd_resource type="Resource" load_steps=2 format=2]
 
-[ext_resource path="res://data/weapon.gd" type="Script" id=1]
+[ext_resource path="res://data/item.gd" type="Script" id=1]
 
 [resource]
 script = ExtResource( 1 )
@@ -12,3 +12,4 @@ id = "ray-gun"
 max_level = 6
 name = "Ray Gun"
 speed = 150.0
+type = ""
