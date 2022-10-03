@@ -10,6 +10,7 @@ onready var _cost: Label = $"%Cost"
 onready var _icon: TextureRect = $"%Icon"
 onready var _level: HBoxContainer = $"%Level"
 onready var _name: Label = $"%Name"
+onready var _upgrade: Label = $"%Description"
 
 func _on_buy_pressed() -> void:
   Store.set_state("metal", Store.state.metal - data.cost)
@@ -22,6 +23,7 @@ func _ready() -> void:
   _cost.text = "%s" % data.cost
   _icon.texture = data.data.icon
   _name.text = data.data.name
+  _upgrade.text = data.data.description
 
   _update_level()
 

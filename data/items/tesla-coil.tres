@@ -7,6 +7,7 @@
 script = ExtResource( 2 )
 cost_per_level = 40
 damage = 2
+description = "Shoots nearest enemy"
 fire_interval = 1.0
 flags = "targeting"
 icon = ExtResource( 1 )

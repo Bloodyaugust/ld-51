@@ -7,6 +7,7 @@
 script = ExtResource( 1 )
 cost_per_level = 25
 damage = 4
+description = "Shoots in movement direction"
 fire_interval = 0.75
 flags = "facing"
 icon = ExtResource( 2 )

@@ -99,13 +99,15 @@ margin_left = 180.0
 margin_right = 288.0
 margin_bottom = 63.0
 
-[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/VBoxContainer2"]
+[node name="Description" type="Label" parent="VBoxContainer/HBoxContainer/VBoxContainer2"]
+unique_name_in_owner = true
 margin_right = 108.0
 margin_bottom = 63.0
+rect_min_size = Vector2( 108, 63 )
 custom_colors/font_color = Color( 0.74902, 0.419608, 0.152941, 1 )
-text = "Upgrade text
-upgrade text
-upgrade text"
+text = "This is some text"
+autowrap = true
+clip_text = true
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer/HBoxContainer"]
 margin_left = 318.0
